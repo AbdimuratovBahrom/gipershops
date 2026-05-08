@@ -632,4 +632,34 @@ function copySummary() {
 function fallbackCopy(text, btn) {
   var ta = document.createElement('textarea');
   ta.value = text;
-  ta.style.cssText = 'position:fixed;top:0;left:0;opacit
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); showCopied(btn); } catch(e) { alert(text); }
+  document.body.removeChild(ta);
+}
+
+function showCopied(btn) {
+  btn.textContent = '✅ Скопировано!';
+  btn.classList.add('copied');
+  setTimeout(function() {
+    btn.innerHTML = '📋 Скопировать';
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('appContent').classList.add('hidden');
+  document.getElementById('groupsContainer').innerHTML = '';
+  shopStates = {};
+  groups = [];
+  warningNums = [];
+  document.getElementById('cnt-pending').textContent = '0';
+  document.getElementById('cnt-off').textContent = '0';
+  document.getElementById('cnt-on').textContent = '0';
+}
+</script>
+</body>
+</html>
