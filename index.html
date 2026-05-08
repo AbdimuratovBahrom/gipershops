@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -12,434 +12,256 @@
   --border: #e2e8f0;
   --text: #1a202c;
   --text-dim: #718096;
-  --pending: #f6ad55;
-  --pending-bg: #fffaf0;
-  --pending-border: #f6ad55;
-  --off: #fc8181;
-  --off-bg: #fff5f5;
-  --off-border: #fc8181;
-  --on: #68d391;
-  --on-bg: #f0fff4;
-  --on-border: #68d391;
   --accent: #667eea;
-  --accent2: #764ba2;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
 }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { background:var(--bg); font-family:'Nunito',sans-serif; color:var(--text); min-height:100vh; padding-bottom:40px; }
 
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-
-body {
-  background: var(--bg);
-  font-family: 'Nunito', sans-serif;
-  color: var(--text);
-  min-height: 100vh;
-  padding-bottom: 40px;
-}
-
-/* Header */
+/* HEADER */
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg,#667eea,#764ba2);
   padding: 20px 16px 24px;
   color: white;
   position: relative;
   overflow: hidden;
 }
 .header::before {
-  content:'';
-  position:absolute;
-  top:-40px; right:-40px;
-  width:180px; height:180px;
-  border-radius:50%;
-  background: rgba(255,255,255,0.08);
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:180px; height:180px; border-radius:50%;
+  background:rgba(255,255,255,0.08);
 }
-.header::after {
-  content:'';
-  position:absolute;
-  bottom:-60px; left:-20px;
-  width:140px; height:140px;
-  border-radius:50%;
-  background: rgba(255,255,255,0.05);
-}
-.header-inner { position:relative; z-index:1; }
 .header h1 {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-bottom: 4px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.1rem; font-weight:700;
+  letter-spacing:0.05em; margin-bottom:4px;
+  position:relative; z-index:1;
 }
-.header p { font-size: 0.78rem; opacity: 0.8; }
+.header p { font-size:0.78rem; opacity:0.8; position:relative; z-index:1; }
 
-/* Stats strip */
+/* STATS */
 .stats-strip {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 10px;
-  padding: 16px;
-  margin-top: -2px;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:10px; padding:16px;
 }
 .stat {
-  background: var(--card);
-  border-radius: 14px;
-  padding: 12px 8px;
-  text-align: center;
-  box-shadow: var(--shadow);
-  border-top: 3px solid transparent;
-  transition: transform 0.2s;
+  background:var(--card); border-radius:14px;
+  padding:12px 8px; text-align:center;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  border-top:3px solid transparent;
 }
-.stat.s-pending { border-top-color: var(--pending); }
-.stat.s-off     { border-top-color: var(--off); }
-.stat.s-on      { border-top-color: var(--on); }
+.stat.s-pending { border-top-color:#f6ad55; }
+.stat.s-off     { border-top-color:#fc8181; }
+.stat.s-on      { border-top-color:#68d391; }
 .stat-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.7rem;
-  font-weight: 700;
-  display: block;
-  line-height: 1;
-  margin-bottom: 4px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.7rem; font-weight:700;
+  display:block; line-height:1; margin-bottom:4px;
 }
-.s-pending .stat-num { color: #dd6b20; }
-.s-off .stat-num     { color: #e53e3e; }
-.s-on .stat-num      { color: #276749; }
-.stat-label { font-size: 0.65rem; color: var(--text-dim); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.s-pending .stat-num { color:#dd6b20; }
+.s-off .stat-num     { color:#e53e3e; }
+.s-on .stat-num      { color:#276749; }
+.stat-label { font-size:0.65rem; color:var(--text-dim); font-weight:700; text-transform:uppercase; letter-spacing:0.06em; }
 
-/* Input area */
-.input-wrap {
-  padding: 0 16px 16px;
-}
+/* INPUT */
+.input-wrap { padding:0 16px 16px; }
 .input-box {
-  background: var(--card);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: border-color 0.2s;
+  background:var(--card); border-radius:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  overflow:hidden; border:2px solid transparent;
+  transition:border-color 0.2s;
 }
-.input-box:focus-within { border-color: var(--accent); }
+.input-box:focus-within { border-color:var(--accent); }
 .input-top {
-  padding: 10px 14px;
-  background: #f7fafc;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-dim);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding:10px 14px; background:#f7fafc;
+  border-bottom:1px solid var(--border);
+  font-size:0.7rem; font-weight:700; color:var(--text-dim);
+  letter-spacing:0.08em; text-transform:uppercase;
+  display:flex; align-items:center; justify-content:space-between;
 }
 .input-tag {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-size: 0.62rem;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white; padding:2px 8px; border-radius:20px; font-size:0.62rem;
 }
 textarea {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  line-height: 1.6;
-  color: var(--text);
-  background: transparent;
-  resize: vertical;
-  min-height: 130px;
+  width:100%; border:none; outline:none;
+  padding:14px; font-family:'JetBrains Mono',monospace;
+  font-size:0.78rem; line-height:1.6; color:var(--text);
+  background:transparent; resize:vertical; min-height:140px;
 }
-textarea::placeholder { color: #a0aec0; }
+textarea::placeholder { color:#a0aec0; }
 
-/* Buttons */
-.btn-row {
-  display: flex;
-  gap: 8px;
-  padding: 0 16px 16px;
-  flex-wrap: wrap;
-}
+/* BUTTONS */
+.btn-row { display:flex; gap:8px; padding:0 16px 16px; flex-wrap:wrap; }
 .btn {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  font-size: 0.8rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 12px;
-  padding: 11px 18px;
-  transition: all 0.18s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  letter-spacing: 0.02em;
+  font-family:'Nunito',sans-serif; font-weight:700;
+  font-size:0.8rem; border:none; cursor:pointer;
+  border-radius:12px; padding:11px 18px;
+  transition:all 0.18s; display:flex;
+  align-items:center; gap:6px;
 }
+.btn:active { transform:scale(0.95); }
 .btn-primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  box-shadow: 0 4px 15px rgba(102,126,234,0.4);
-  flex: 1;
-  justify-content: center;
-}
-.btn-primary:active { transform: scale(0.97); }
-.btn-demo {
-  background: #e9f7ef;
-  color: #276749;
-  border: 1.5px solid #68d391;
-}
-.btn-reset {
-  background: #fff5f5;
-  color: #c53030;
-  border: 1.5px solid #fc8181;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white; box-shadow:0 4px 15px rgba(102,126,234,0.4); flex:1; justify-content:center;
 }
 .btn-copy {
-  background: #ebf8ff;
-  color: #2b6cb0;
-  border: 1.5px solid #63b3ed;
+  background:#ebf8ff; color:#2b6cb0;
+  border:1.5px solid #63b3ed;
 }
 .btn-copy.copied {
-  background: #f0fff4;
-  color: #276749;
-  border-color: #68d391;
+  background:#f0fff4; color:#276749; border-color:#68d391;
 }
 .btn-clear {
-  background: #ebf8ff;
-  color: #2b6cb0;
-  border: 1.5px solid #90cdf4;
+  background:#fff5f5; color:#c53030;
+  border:1.5px solid #fc8181;
 }
 
-/* Legend */
+/* LEGEND */
 .legend {
-  display: flex;
-  gap: 10px;
-  padding: 0 16px 12px;
-  flex-wrap: wrap;
+  display:flex; gap:10px; padding:0 16px 12px; flex-wrap:wrap;
 }
-.leg-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-dim);
-}
-.leg-dot {
-  width: 10px; height: 10px;
-  border-radius: 3px;
-}
-.leg-dot.pending { background: var(--pending); }
-.leg-dot.off     { background: var(--off); }
-.leg-dot.on      { background: var(--on); }
+.leg-item { display:flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:600; color:var(--text-dim); }
+.leg-dot { width:10px; height:10px; border-radius:3px; }
+.leg-dot.pending { background:#f6ad55; }
+.leg-dot.off     { background:#fc8181; }
+.leg-dot.on      { background:#68d391; }
 
-/* Section */
-.section {
-  padding: 0 16px 8px;
+/* WARNING BOX */
+.warning-box {
+  margin:0 16px 12px;
+  background:#fffff0; border:1.5px solid #f6e05e;
+  border-radius:12px; padding:12px 14px;
 }
+.warning-title {
+  font-size:0.72rem; font-weight:800; color:#744210;
+  text-transform:uppercase; letter-spacing:0.06em;
+  margin-bottom:10px; display:flex; align-items:center; gap:6px;
+}
+.warning-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.warning-chip {
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.82rem; font-weight:700;
+  background:#fefcbf; color:#744210;
+  border:1.5px solid #f6e05e;
+  padding:5px 12px; border-radius:8px;
+}
+
+/* SECTION */
+.section { padding:0 16px 8px; }
 .section-title {
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-dim);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size:0.72rem; font-weight:800;
+  text-transform:uppercase; letter-spacing:0.1em;
+  color:var(--text-dim); margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
 }
-.section-title::after {
-  content:'';
-  flex:1;
-  height:1px;
-  background: var(--border);
-}
-.section-count {
-  background: var(--accent);
-  color: white;
-  font-size: 0.62rem;
-  padding: 2px 7px;
-  border-radius: 20px;
-  font-weight: 700;
-}
+.section-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
-/* Group card */
+/* GROUP CARD */
 .group-card {
-  background: var(--card);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  margin-bottom: 12px;
-  overflow: hidden;
+  background:var(--card); border-radius:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  margin-bottom:12px; overflow:hidden;
 }
 .group-header {
-  padding: 11px 14px;
-  background: linear-gradient(135deg, #667eea15, #764ba215);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding:11px 14px;
+  background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(118,75,162,0.08));
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
 }
 .group-name {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.8rem; font-weight:700; color:var(--accent);
 }
 .group-floor {
-  font-size: 0.68rem;
-  color: var(--text-dim);
-  background: var(--border);
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-weight: 600;
+  font-size:0.68rem; color:var(--text-dim);
+  background:var(--border); padding:2px 8px;
+  border-radius:20px; font-weight:600;
 }
-.group-shops {
-  padding: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+.group-shops { padding:12px; display:flex; flex-wrap:wrap; gap:8px; }
 
-/* Shop button - THE CORE ELEMENT */
+/* SHOP BUTTON */
 .shop-btn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-  font-weight: 700;
-  width: 58px;
-  height: 52px;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  position: relative;
-  user-select: none;
-  -webkit-user-select: none;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.82rem; font-weight:700;
+  width:58px; height:52px; border-radius:12px;
+  border:2px solid transparent; cursor:pointer;
+  transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:2px; user-select:none; -webkit-user-select:none;
 }
-.shop-btn:active { transform: scale(0.9); }
+.shop-btn:active { transform:scale(0.88); }
+.shop-num { font-size:0.82rem; line-height:1; }
+.shop-icon { font-size:0.62rem; line-height:1; }
 
-.shop-btn .shop-num { font-size: 0.82rem; line-height: 1; }
-.shop-btn .shop-icon { font-size: 0.65rem; line-height: 1; }
-
-/* PENDING state - not yet toggled */
 .shop-btn.pending {
-  background: var(--pending-bg);
-  border-color: var(--pending-border);
-  color: #c05621;
-  box-shadow: 0 2px 8px rgba(246,173,85,0.25);
+  background:#fffaf0; border-color:#f6ad55; color:#c05621;
+  box-shadow:0 2px 8px rgba(246,173,85,0.25);
 }
-/* OFF state - отключён */
 .shop-btn.off {
-  background: var(--off-bg);
-  border-color: var(--off-border);
-  color: #c53030;
-  box-shadow: 0 2px 8px rgba(252,129,129,0.3);
+  background:#fff5f5; border-color:#fc8181; color:#c53030;
+  box-shadow:0 2px 8px rgba(252,129,129,0.3);
+  text-decoration:line-through; text-decoration-color:#fc8181;
 }
-.shop-btn.off::after {
-  content: '';
-  position: absolute;
-  top: 50%; left: 10%;
-  width: 80%; height: 2px;
-  background: var(--off);
-  border-radius: 2px;
-  transform: translateY(-50%) rotate(-15deg);
-  opacity: 0.5;
-}
-/* ON state - включён */
 .shop-btn.on {
-  background: var(--on-bg);
-  border-color: var(--on-border);
-  color: #276749;
-  box-shadow: 0 2px 8px rgba(104,211,145,0.35);
+  background:#f0fff4; border-color:#68d391; color:#276749;
+  box-shadow:0 2px 8px rgba(104,211,145,0.35);
 }
 
-/* Summary lists */
-.summary-section {
-  padding: 0 16px;
-  margin-top: 8px;
-}
+/* SUMMARY */
+.summary-section { padding:0 16px; margin-top:4px; }
 .sum-card {
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 10px;
-  border: 2px solid transparent;
+  border-radius:16px; padding:14px;
+  margin-bottom:10px; border:2px solid transparent;
 }
-.sum-card.pending { background: var(--pending-bg); border-color: #f6ad5540; }
-.sum-card.off     { background: var(--off-bg);     border-color: #fc818140; }
-.sum-card.on      { background: var(--on-bg);      border-color: #68d39140; }
-
+.sum-card.pending { background:#fffaf0; border-color:rgba(246,173,85,0.4); }
+.sum-card.off     { background:#fff5f5; border-color:rgba(252,129,129,0.4); }
+.sum-card.on      { background:#f0fff4; border-color:rgba(104,211,145,0.4); }
 .sum-title {
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  font-size:0.72rem; font-weight:800;
+  text-transform:uppercase; letter-spacing:0.08em;
+  margin-bottom:10px; display:flex; align-items:center; gap:7px;
 }
-.sum-card.pending .sum-title { color: #c05621; }
-.sum-card.off .sum-title     { color: #c53030; }
-.sum-card.on .sum-title      { color: #276749; }
-
-.sum-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sum-card.pending .sum-title { color:#c05621; }
+.sum-card.off .sum-title     { color:#c53030; }
+.sum-card.on .sum-title      { color:#276749; }
+.sum-count {
+  padding:1px 8px; border-radius:20px; font-size:0.65rem;
+}
+.sum-card.pending .sum-count { background:#feebc8; }
+.sum-card.off .sum-count     { background:#fed7d7; }
+.sum-card.on .sum-count      { background:#c6f6d5; }
+.sum-chips { display:flex; flex-wrap:wrap; gap:6px; }
 .sum-chip {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 8px;
-  animation: popIn 0.25s ease forwards;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.78rem; font-weight:700;
+  padding:4px 10px; border-radius:8px;
+}
+.sum-card.pending .sum-chip { background:#feebc8; color:#c05621; }
+.sum-card.off .sum-chip     { background:#fed7d7; color:#c53030; }
+.sum-card.on .sum-chip      { background:#c6f6d5; color:#276749; }
+.empty-msg { font-size:0.75rem; color:var(--text-dim); font-style:italic; }
+
+.divider { height:1px; background:var(--border); margin:8px 16px 16px; }
+.hidden { display:none !important; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 @keyframes popIn {
   from { opacity:0; transform:scale(0.7); }
   to   { opacity:1; transform:scale(1); }
 }
-.sum-card.pending .sum-chip { background: #feebc8; color: #c05621; }
-.sum-card.off .sum-chip     { background: #fed7d7; color: #c53030; }
-.sum-card.on .sum-chip      { background: #c6f6d5; color: #276749; }
-
-.empty-msg { font-size: 0.75rem; color: var(--text-dim); font-style: italic; }
-
-/* Warning box */
-.warning-box {
-  margin: 0 16px 12px;
-  background: #fffff0;
-  border: 1.5px solid #f6e05e;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 0.74rem;
-  color: #744210;
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-}
-.warning-box .warn-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-
-/* Divider */
-.divider { height: 1px; background: var(--border); margin: 8px 16px 16px; }
-
-/* Animations */
-@keyframes fadeSlide {
-  from { opacity:0; transform:translateY(10px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.group-card { animation: fadeSlide 0.3s ease forwards; }
-
-.hidden { display: none !important; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-inner">
-    <h1>🏬 Дўкон Назорати</h1>
-    <p>Интерактивный менеджер магазинов · Гипермаркет</p>
-  </div>
+  <h1>🏬 Дўкон Назорати</h1>
+  <p>Интерактивный менеджер магазинов · Гипермаркет</p>
 </div>
 
-<!-- Stats -->
 <div class="stats-strip">
   <div class="stat s-pending">
     <span class="stat-num" id="cnt-pending">0</span>
@@ -455,7 +277,6 @@ textarea::placeholder { color: #a0aec0; }
   </div>
 </div>
 
-<!-- Input -->
 <div class="input-wrap">
   <div class="input-box">
     <div class="input-top">
@@ -465,10 +286,13 @@ textarea::placeholder { color: #a0aec0; }
     <textarea id="inputText" placeholder="ШО-1 (1-этаж): 134, 136, 139, 163
 ШО-3 (1-этаж): 208, 258, 259
 ШО-4 (1-этаж): 146, 147, 173, 184
-...
+ШО-1 (2-этаж): 275, 303, 302, 298, 339
+ШО-2 (2-этаж): 385
+ШО-3 (2-этаж): 324, 355
+ШО-4 (2-этаж): 293, 291, 283, 285, 288, 289, 329, 330, 331, 332
 
-⚠️ Эти магазины не отключаются:
-гипермаркет, зафар..."></textarea>
+⚠️ Эти магазины не отключаются отдельно:
+гипермаркет, зафар, назорачиси"></textarea>
   </div>
 </div>
 
@@ -478,30 +302,19 @@ textarea::placeholder { color: #a0aec0; }
   <button class="btn btn-clear" onclick="clearAll()">🗑 Очистить</button>
 </div>
 
-<!-- App content -->
 <div id="appContent" class="hidden">
 
-  <!-- Legend -->
   <div class="legend">
-    <div class="leg-item"><div class="leg-dot pending"></div> Ожидает</div>
-    <div class="leg-item"><div class="leg-dot off"></div> Отключён</div>
-    <div class="leg-item"><div class="leg-dot on"></div> Включён</div>
-    <span style="font-size:0.68rem;color:#a0aec0;font-weight:600">Нажмите на номер для смены статуса</span>
+    <div class="leg-item"><div class="leg-dot pending"></div>Ожидает</div>
+    <div class="leg-item"><div class="leg-dot off"></div>Отключён</div>
+    <div class="leg-item"><div class="leg-dot on"></div>Включён</div>
   </div>
 
-  <!-- Warning box -->
   <div id="warningBox" class="warning-box hidden">
-    <div style="width:100%">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
-        <span>⚠️</span>
-        <span style="font-size:0.72rem;font-weight:800;color:#744210;text-transform:uppercase;letter-spacing:0.06em">Не отключаются отдельно</span>
-      </div>
-      <div id="warningChips" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-      <div id="warningEmpty" style="font-size:0.73rem;color:#b7791f;font-style:italic;display:none">Номера не указаны</div>
-    </div>
+    <div class="warning-title">⚠️ Не отключаются отдельно</div>
+    <div class="warning-chips" id="warningChips"></div>
   </div>
 
-  <!-- Groups -->
   <div class="section">
     <div class="section-title">Магазины по секциям</div>
     <div id="groupsContainer"></div>
@@ -509,97 +322,59 @@ textarea::placeholder { color: #a0aec0; }
 
   <div class="divider"></div>
 
-  <!-- Summary -->
   <div class="summary-section">
     <div class="section" style="padding:0 0 8px">
       <div class="section-title">Сводка статусов</div>
     </div>
 
     <div class="sum-card pending">
-      <div class="sum-title">⏳ Ещё не отключены <span id="sum-pending-count" style="background:#feebc8;padding:1px 7px;border-radius:20px;font-size:0.65rem">0</span></div>
-      <div class="sum-chips" id="sum-pending"><span class="empty-msg">Все магазины обработаны</span></div>
+      <div class="sum-title">
+        ⏳ Ещё не отключены
+        <span class="sum-count" id="sum-pending-count">0</span>
+      </div>
+      <div class="sum-chips" id="sum-pending">
+        <span class="empty-msg">Все магазины обработаны</span>
+      </div>
     </div>
 
     <div class="sum-card off">
-      <div class="sum-title">🔴 Уже отключены <span id="sum-off-count" style="background:#fed7d7;padding:1px 7px;border-radius:20px;font-size:0.65rem">0</span></div>
-      <div class="sum-chips" id="sum-off"><span class="empty-msg">Нет отключённых</span></div>
+      <div class="sum-title">
+        🔴 Уже отключены
+        <span class="sum-count" id="sum-off-count">0</span>
+      </div>
+      <div class="sum-chips" id="sum-off">
+        <span class="empty-msg">Нет отключённых</span>
+      </div>
     </div>
 
     <div class="sum-card on">
-      <div class="sum-title">🟢 Уже включены <span id="sum-on-count" style="background:#c6f6d5;padding:1px 7px;border-radius:20px;font-size:0.65rem">0</span></div>
-      <div class="sum-chips" id="sum-on"><span class="empty-msg">Нет включённых</span></div>
+      <div class="sum-title">
+        🟢 Уже включены
+        <span class="sum-count" id="sum-on-count">0</span>
+      </div>
+      <div class="sum-chips" id="sum-on">
+        <span class="empty-msg">Нет включённых</span>
+      </div>
     </div>
   </div>
+
 </div>
 
 <script>
-// State: shopId -> 'pending' | 'off' | 'on'
-let shopStates = {};
-// Groups: [{name, floor, shops:[]}]
-let groups = [];
-// Warning numbers only
-let warningNums = [];
+var shopStates = {};
+var groups = [];
+var warningNums = [];
 
-const CYCLE = ['pending','off','on'];
-
-function nextState(current) {
-  const idx = CYCLE.indexOf(current);
-  return CYCLE[(idx + 1) % CYCLE.length];
-}
-
-function toggle(shopId) {
-  shopStates[shopId] = nextState(shopStates[shopId] || 'pending');
-  updateShopBtn(shopId);
-  updateSummary();
-  updateStats();
-}
-
-function updateShopBtn(shopId) {
-  const btn = document.getElementById('btn-' + shopId);
-  if (!btn) return;
-  const state = shopStates[shopId];
-  btn.className = 'shop-btn ' + state;
-  const icons = { pending: '⏳', off: '🔴', on: '🟢' };
-  btn.querySelector('.shop-icon').textContent = icons[state];
-}
-
-function updateStats() {
-  const vals = Object.values(shopStates);
-  document.getElementById('cnt-pending').textContent = vals.filter(v=>v==='pending').length;
-  document.getElementById('cnt-off').textContent     = vals.filter(v=>v==='off').length;
-  document.getElementById('cnt-on').textContent      = vals.filter(v=>v==='on').length;
-}
-
-function updateSummary() {
-  const pending=[], off=[], on=[];
-  for (const [id, state] of Object.entries(shopStates)) {
-    if (state==='pending') pending.push(id);
-    else if (state==='off') off.push(id);
-    else on.push(id);
+function extractNums(str) {
+  var result = [];
+  var matches = str.match(/\b\d{1,4}\b/g);
+  if (matches) {
+    for (var i = 0; i < matches.length; i++) {
+      var n = parseInt(matches[i]);
+      if (n > 0 && n < 10000) result.push(n);
+    }
   }
-  pending.sort((a,b)=>+a-(+b));
-  off.sort((a,b)=>+a-(+b));
-  on.sort((a,b)=>+a-(+b));
-
-  renderSumChips('sum-pending', pending, 'pending');
-  renderSumChips('sum-off', off, 'off');
-  renderSumChips('sum-on', on, 'on');
-
-  document.getElementById('sum-pending-count').textContent = pending.length;
-  document.getElementById('sum-off-count').textContent = off.length;
-  document.getElementById('sum-on-count').textContent = on.length;
-}
-
-function renderSumChips(containerId, items, cls) {
-  const el = document.getElementById(containerId);
-  if (items.length === 0) {
-    const msgs = { pending:'Все магазины обработаны', off:'Нет отключённых', on:'Нет включённых' };
-    el.innerHTML = `<span class="empty-msg">${msgs[cls]}</span>`;
-    return;
-  }
-  el.innerHTML = items.map((id,i) =>
-    `<span class="sum-chip" style="animation-delay:${i*20}ms">${id}</span>`
-  ).join('');
+  return result;
 }
 
 function parseText(text) {
@@ -607,231 +382,254 @@ function parseText(text) {
   shopStates = {};
   warningNums = [];
 
-  const lines = text.split('\n');
-  let warningMode = false;
+  var lines = text.split('\n');
+  var inWarning = false;
 
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
     if (!line) continue;
 
-    // Warning line detection
-    if (line.includes('⚠️') || line.toLowerCase().includes('не отключ')) {
-      warningMode = true;
-      // grab ONLY numbers from the warning line itself (ignore all words/symbols)
-      extractNums(line).forEach(n => warningNums.push(n));
+    // Detect warning section
+    if (line.indexOf('⚠️') !== -1 || line.toLowerCase().indexOf('не отключ') !== -1) {
+      inWarning = true;
+      // grab numbers from this line too
+      var wn = extractNums(line);
+      for (var k = 0; k < wn.length; k++) warningNums.push(wn[k]);
       continue;
     }
 
-    if (warningMode) {
-      // If line looks like a group line, stop warning mode and fall through
-      const isGroupLine = line.match(/^(.+?)\s*\(([^)]+)\)\s*:\s*(.+)/) ||
-                          (line.match(/^([^:]+):\s*(.+)/) && extractNums((line.match(/^([^:]+):\s*(.+)/) || [])[2] || '').length > 0 && line.match(/^[А-ЯA-ZШ]/));
-      if (isGroupLine) {
-        warningMode = false;
-        // fall through to group parsing below
+    if (inWarning) {
+      // If line starts with a letter and contains colon pattern like "ШО-1 (...):" — it's a new group, stop warning
+      var isGroup = /^[А-ЯA-ZШ]/.test(line) && line.indexOf(':') !== -1;
+      if (isGroup) {
+        inWarning = false;
+        // fall through to group parsing
       } else {
-        // collect ONLY numbers — skip all letters, words, emoji, symbols
-        extractNums(line).forEach(n => warningNums.push(n));
+        // only collect numbers
+        var wn2 = extractNums(line);
+        for (var k2 = 0; k2 < wn2.length; k2++) warningNums.push(wn2[k2]);
         continue;
       }
     }
 
-    // Group line: "ШО-1 (1-этаж): 134, 136..."
-    const groupMatch = line.match(/^(.+?)\s*\(([^)]+)\)\s*:\s*(.+)/);
-    if (groupMatch) {
-      const name  = groupMatch[1].trim();
-      const floor = groupMatch[2].trim();
-      const nums  = extractNums(groupMatch[3]);
+    // Try to parse group line like "ШО-1 (1-этаж): 134, 136, 139"
+    var m1 = line.match(/^(.+?)\s*\(([^)]+)\)\s*:\s*(.+)/);
+    if (m1) {
+      var gName  = m1[1].trim();
+      var gFloor = m1[2].trim();
+      var nums   = extractNums(m1[3]);
       if (nums.length > 0) {
-        groups.push({ name, floor, shops: nums.map(String) });
-        nums.forEach(n => { shopStates[String(n)] = 'pending'; });
+        var shops = [];
+        for (var j = 0; j < nums.length; j++) {
+          shops.push(String(nums[j]));
+          shopStates[String(nums[j])] = 'pending';
+        }
+        groups.push({ name: gName, floor: gFloor, shops: shops });
       }
       continue;
     }
 
-    // Simple "GroupName: 1,2,3"
-    const simpleMatch = line.match(/^([^:]+):\s*(.+)/);
-    if (simpleMatch) {
-      const nums = extractNums(simpleMatch[2]);
-      if (nums.length > 0) {
-        groups.push({ name: simpleMatch[1].trim(), floor: '', shops: nums.map(String) });
-        nums.forEach(n => { shopStates[String(n)] = 'pending'; });
+    // Try simple "GroupName: 1, 2, 3"
+    var m2 = line.match(/^([^:]+):\s*(.+)/);
+    if (m2) {
+      var nums2 = extractNums(m2[2]);
+      if (nums2.length > 0) {
+        var shops2 = [];
+        for (var j2 = 0; j2 < nums2.length; j2++) {
+          shops2.push(String(nums2[j2]));
+          shopStates[String(nums2[j2])] = 'pending';
+        }
+        groups.push({ name: m2[1].trim(), floor: '', shops: shops2 });
       }
     }
   }
-  // deduplicate warningNums
-  warningNums = [...new Set(warningNums)].sort((a,b)=>a-b);
 }
 
-function extractNums(text) {
-  return [...text.matchAll(/\b(\d{1,4})\b/g)]
-    .map(m => parseInt(m[1]))
-    .filter(n => n > 0 && n < 10000);
+function toggle(shopId) {
+  var cur = shopStates[shopId] || 'pending';
+  var next = cur === 'pending' ? 'off' : (cur === 'off' ? 'on' : 'pending');
+  shopStates[shopId] = next;
+  var btn = document.getElementById('btn-' + shopId);
+  if (btn) {
+    btn.className = 'shop-btn ' + next;
+    var icons = { pending:'⏳', off:'🔴', on:'🟢' };
+    btn.querySelector('.shop-icon').textContent = icons[next];
+  }
+  updateSummary();
+  updateStats();
+}
+
+function updateStats() {
+  var pending = 0, off = 0, on = 0;
+  var keys = Object.keys(shopStates);
+  for (var i = 0; i < keys.length; i++) {
+    var s = shopStates[keys[i]];
+    if (s === 'pending') pending++;
+    else if (s === 'off') off++;
+    else on++;
+  }
+  document.getElementById('cnt-pending').textContent = pending;
+  document.getElementById('cnt-off').textContent = off;
+  document.getElementById('cnt-on').textContent = on;
+}
+
+function updateSummary() {
+  var pending = [], off = [], on = [];
+  var keys = Object.keys(shopStates);
+  for (var i = 0; i < keys.length; i++) {
+    var id = keys[i];
+    var s  = shopStates[id];
+    if (s === 'pending') pending.push(id);
+    else if (s === 'off') off.push(id);
+    else on.push(id);
+  }
+  pending.sort(function(a,b){ return +a - +b; });
+  off.sort(function(a,b){ return +a - +b; });
+  on.sort(function(a,b){ return +a - +b; });
+
+  renderChips('sum-pending', pending, 'pending', 'Все магазины обработаны');
+  renderChips('sum-off',     off,     'off',     'Нет отключённых');
+  renderChips('sum-on',      on,      'on',      'Нет включённых');
+
+  document.getElementById('sum-pending-count').textContent = pending.length;
+  document.getElementById('sum-off-count').textContent     = off.length;
+  document.getElementById('sum-on-count').textContent      = on.length;
+}
+
+function renderChips(containerId, items, cls, emptyMsg) {
+  var el = document.getElementById(containerId);
+  if (items.length === 0) {
+    el.innerHTML = '<span class="empty-msg">' + emptyMsg + '</span>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < items.length; i++) {
+    html += '<span class="sum-chip" style="animation:popIn 0.2s ease ' + (i*20) + 'ms both">' + items[i] + '</span>';
+  }
+  el.innerHTML = html;
 }
 
 function parseAndRender() {
-  const text = document.getElementById('inputText').value.trim();
-  if (!text) return;
-  parseText(text);
-  if (groups.length === 0) {
-    alert('Магазины не найдены. Проверьте формат текста.');
+  var text = document.getElementById('inputText').value.trim();
+  if (!text) {
+    alert('Пожалуйста, вставьте текст со списком магазинов!');
     return;
   }
-  renderApp();
+
+  parseText(text);
+
+  if (groups.length === 0) {
+    alert('Магазины не найдены. Пример формата:\nШО-1 (1-этаж): 134, 136, 139');
+    return;
+  }
+
+  renderGroups();
+  renderWarning();
+  updateStats();
+  updateSummary();
+
+  document.getElementById('appContent').classList.remove('hidden');
+  setTimeout(function() {
+    document.getElementById('appContent').scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 150);
 }
 
-function renderApp() {
-  // Warning - show ONLY numbers as chips, no text/words/symbols
-  const wb = document.getElementById('warningBox');
-  const wc = document.getElementById('warningChips');
-  const we = document.getElementById('warningEmpty');
-  // Show warning box if ⚠️ section was found in text
+function renderGroups() {
+  var container = document.getElementById('groupsContainer');
+  container.innerHTML = '';
+
+  for (var gi = 0; gi < groups.length; gi++) {
+    var g = groups[gi];
+    var card = document.createElement('div');
+    card.className = 'group-card';
+    card.style.animation = 'fadeUp 0.3s ease ' + (gi * 60) + 'ms both';
+
+    var floorHtml = g.floor ? '<span class="group-floor">' + g.floor + '</span>' : '';
+    card.innerHTML =
+      '<div class="group-header">' +
+        '<span class="group-name">' + g.name + '</span>' +
+        floorHtml +
+      '</div>' +
+      '<div class="group-shops" id="gshops-' + gi + '"></div>';
+    container.appendChild(card);
+
+    var shopsEl = document.getElementById('gshops-' + gi);
+    for (var si = 0; si < g.shops.length; si++) {
+      var shopId = g.shops[si];
+      var btn = document.createElement('button');
+      btn.className = 'shop-btn pending';
+      btn.id = 'btn-' + shopId;
+      btn.setAttribute('onclick', 'toggle("' + shopId + '")');
+      btn.innerHTML = '<span class="shop-num">' + shopId + '</span><span class="shop-icon">⏳</span>';
+      shopsEl.appendChild(btn);
+    }
+  }
+}
+
+function renderWarning() {
+  var wb = document.getElementById('warningBox');
+  var wc = document.getElementById('warningChips');
+
   if (warningNums.length > 0) {
-    wc.innerHTML = warningNums.map((n,i) =>
-      `<span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;font-weight:700;background:#fefcbf;color:#744210;border:1.5px solid #f6e05e;padding:5px 12px;border-radius:8px;animation:popIn 0.25s ease ${i*30}ms both">${n}</span>`
-    ).join('');
-    wc.style.display = 'flex';
-    we.style.display = 'none';
-    wb.classList.remove('hidden');
-  } else if (document.getElementById('inputText').value.includes('⚠️') ||
-             document.getElementById('inputText').value.toLowerCase().includes('не отключ')) {
-    // Warning section found but no numbers in it
-    wc.innerHTML = '';
-    wc.style.display = 'none';
-    we.style.display = 'block';
+    var html = '';
+    for (var i = 0; i < warningNums.length; i++) {
+      html += '<span class="warning-chip">' + warningNums[i] + '</span>';
+    }
+    wc.innerHTML = html;
     wb.classList.remove('hidden');
   } else {
     wb.classList.add('hidden');
   }
-
-  // Groups
-  const container = document.getElementById('groupsContainer');
-  container.innerHTML = '';
-
-  groups.forEach((g, gi) => {
-    const card = document.createElement('div');
-    card.className = 'group-card';
-    card.style.animationDelay = (gi * 60) + 'ms';
-    card.style.opacity = '0';
-    setTimeout(()=>{ card.style.opacity=''; }, gi*60);
-
-    const floorBadge = g.floor ? `<span class="group-floor">${g.floor}</span>` : '';
-    card.innerHTML = `
-      <div class="group-header">
-        <span class="group-name">${g.name}</span>
-        ${floorBadge}
-      </div>
-      <div class="group-shops" id="shops-${gi}"></div>
-    `;
-    container.appendChild(card);
-
-    const shopsEl = card.querySelector(`#shops-${gi}`);
-    g.shops.forEach((shopId, si) => {
-      const btn = document.createElement('button');
-      btn.className = 'shop-btn pending';
-      btn.id = 'btn-' + shopId;
-      btn.style.animationDelay = (si * 30) + 'ms';
-      btn.innerHTML = `<span class="shop-num">${shopId}</span><span class="shop-icon">⏳</span>`;
-      btn.onclick = () => toggle(shopId);
-      shopsEl.appendChild(btn);
-    });
-  });
-
-  updateStats();
-  updateSummary();
-  document.getElementById('appContent').classList.remove('hidden');
-
-  // Scroll to content
-  setTimeout(() => {
-    document.getElementById('appContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 200);
 }
 
 function copySummary() {
-  const vals = Object.entries(shopStates);
-  if (vals.length === 0) {
+  var keys = Object.keys(shopStates);
+  if (keys.length === 0) {
     alert('Сначала сформируйте список магазинов!');
     return;
   }
 
-  const pending = vals.filter(([,s])=>s==='pending').map(([id])=>id).sort((a,b)=>+a-+b);
-  const off     = vals.filter(([,s])=>s==='off').map(([id])=>id).sort((a,b)=>+a-+b);
-  const on      = vals.filter(([,s])=>s==='on').map(([id])=>id).sort((a,b)=>+a-+b);
+  var pending = [], off = [], on = [];
+  for (var i = 0; i < keys.length; i++) {
+    var id = keys[i];
+    var s  = shopStates[id];
+    if (s === 'pending') pending.push(id);
+    else if (s === 'off') off.push(id);
+    else on.push(id);
+  }
+  pending.sort(function(a,b){ return +a-+b; });
+  off.sort(function(a,b){ return +a-+b; });
+  on.sort(function(a,b){ return +a-+b; });
 
-  const now = new Date();
-  const time = now.toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
-  const date = now.toLocaleDateString('ru-RU');
+  var now  = new Date();
+  var time = now.toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
+  var date = now.toLocaleDateString('ru-RU');
 
-  let text = `📊 ОТЧЁТ — ${date} ${time}\n`;
-  text += `${'─'.repeat(30)}\n`;
-  text += `⏳ Ожидают отключения (${pending.length}):\n`;
-  text += pending.length > 0 ? pending.join(', ') : 'нет';
-  text += `\n\n🔴 Отключены (${off.length}):\n`;
-  text += off.length > 0 ? off.join(', ') : 'нет';
-  text += `\n\n🟢 Включены (${on.length}):\n`;
-  text += on.length > 0 ? on.join(', ') : 'нет';
-  text += `\n${'─'.repeat(30)}`;
+  var text =
+    '📊 ОТЧЁТ — ' + date + ' ' + time + '\n' +
+    '──────────────────────────\n' +
+    '⏳ Ожидают отключения (' + pending.length + '):\n' +
+    (pending.length > 0 ? pending.join(', ') : 'нет') + '\n\n' +
+    '🔴 Отключены (' + off.length + '):\n' +
+    (off.length > 0 ? off.join(', ') : 'нет') + '\n\n' +
+    '🟢 Включены (' + on.length + '):\n' +
+    (on.length > 0 ? on.join(', ') : 'нет') + '\n' +
+    '──────────────────────────';
 
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✅ Скопировано!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = '📋 Скопировать';
-      btn.classList.remove('copied');
-    }, 2000);
-  }).catch(() => {
-    // fallback for older browsers
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✅ Скопировано!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = '📋 Скопировать';
-      btn.classList.remove('copied');
-    }, 2000);
-  });
+  var btn = document.getElementById('copyBtn');
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      showCopied(btn);
+    }).catch(function() {
+      fallbackCopy(text, btn);
+    });
+  } else {
+    fallbackCopy(text, btn);
+  }
 }
 
-  document.getElementById('inputText').value = '';
-  document.getElementById('appContent').classList.add('hidden');
-  document.getElementById('groupsContainer').innerHTML = '';
-  shopStates = {};
-  groups = [];
-  warningNums = [];
-  document.getElementById('cnt-pending').textContent = '0';
-  document.getElementById('cnt-off').textContent = '0';
-  document.getElementById('cnt-on').textContent = '0';
-}
-
-function resetAll() {
-  Object.keys(shopStates).forEach(id => { shopStates[id] = 'pending'; });
-  Object.keys(shopStates).forEach(id => updateShopBtn(id));
-  updateStats();
-  updateSummary();
-}
-
-function loadDemo() {
-  document.getElementById('inputText').value =
-`ШО-1 (1-этаж): 134, 136, 139, 163
-ШО-3 (1-этаж): 208, 258, 259
-ШО-4 (1-этаж): 146, 147, 173, 184
-ШО-1 (2-этаж): 275, 303, 302, 298, 339
-ШО-2 (2-этаж): 385
-ШО-3 (2-этаж): 324, 355
-ШО-4 (2-этаж): 293, 291, 283, 285, 288, 289, 329, 330, 331, 332
-
-⚠️ Эти магазины не отключаются отдельно:
-гипермаркет, зафар, назорачиси`;
-  parseAndRender();
-}
-</script>
-</body>
-</html>
+function fallbackCopy(text, btn) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacit
