@@ -45,6 +45,7 @@ textarea::placeholder{color:#a0aec0}
 .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 14px rgba(102,126,234,.4);flex:1;justify-content:center}
 .btn-copy{background:#ebf8ff;color:#2b6cb0;border:1.5px solid #63b3ed}
 .btn-copy.copied{background:#f0fff4;color:#276749;border-color:#68d391}
+.btn-reset{background:#f0f4f8;color:#4a5568;border:1.5px solid #cbd5e0}
 .btn-clear{background:#fff5f5;color:#c53030;border:1.5px solid #fc8181}
 
 .legend{display:flex;gap:10px;padding:0 16px 10px;flex-wrap:wrap;align-items:center}
@@ -188,6 +189,7 @@ textarea::placeholder{color:#a0aec0}
 
   <div id="listBtns" class="btn-row hidden">
     <button class="btn btn-copy" id="copyBtn" onclick="copySummary()">📋 Скопировать</button>
+    <button class="btn btn-reset" onclick="resetStates()">↺ Сбросить</button>
     <button class="btn btn-clear" onclick="clearAll()">🗑 Очистить всё</button>
   </div>
 
@@ -480,7 +482,10 @@ function ico(s){ return s==='pending'?'⏳':s==='off'?'🔴':'🟢'; }
 
 function doToggle(sid) {
   var cur=ST[sid]||'pending';
-  ST[sid]=cur==='pending'?'off':cur==='off'?'on':'pending';
+  // ⏳ → 🔴 → 🟢 → ⏳ (full cycle so user can reset)
+  if (cur==='pending') ST[sid]='off';
+  else if (cur==='off') ST[sid]='on';
+  else ST[sid]='pending';
   var btn=document.getElementById('sb'+sid);
   if (btn) {
     btn.className='s-btn '+ST[sid];
@@ -621,6 +626,13 @@ function selMta(){ var t=document.getElementById('mta'); if(t){ t.focus(); t.sel
 // ══════════════════════════════════════════
 //  CLEAR
 // ══════════════════════════════════════════
+function resetStates() {
+  Object.keys(ST).forEach(function(sid){ ST[sid]='pending'; });
+  saveStates();
+  renderAll();
+  toast('↺ Все статусы сброшены');
+}
+
 function clearAll() {
   G=[]; ST={}; WARN=[]; delWrap=null;
   lsDel(K_G); lsDel(K_S); lsDel(K_W);
