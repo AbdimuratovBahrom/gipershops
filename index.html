@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,659 +7,654 @@
 <title>Дўкон Назорати</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f0f4f8;
-  --card: #ffffff;
-  --border: #e2e8f0;
-  --text: #1a202c;
-  --text-dim: #718096;
-  --accent: #667eea;
-}
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-body { background:var(--bg); font-family:'Nunito',sans-serif; color:var(--text); min-height:100vh; padding-bottom:40px; }
+:root{--bg:#f0f4f8;--card:#fff;--border:#e2e8f0;--text:#1a202c;--dim:#718096;--accent:#667eea}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);font-family:'Nunito',sans-serif;color:var(--text);min-height:100vh;padding-bottom:60px}
 
-/* HEADER */
-.header {
-  background: linear-gradient(135deg,#667eea,#764ba2);
-  padding: 20px 16px 24px;
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
-.header::before {
-  content:''; position:absolute; top:-40px; right:-40px;
-  width:180px; height:180px; border-radius:50%;
-  background:rgba(255,255,255,0.08);
-}
-.header h1 {
-  font-family:'JetBrains Mono',monospace;
-  font-size:1.1rem; font-weight:700;
-  letter-spacing:0.05em; margin-bottom:4px;
-  position:relative; z-index:1;
-}
-.header p { font-size:0.78rem; opacity:0.8; position:relative; z-index:1; }
+.header{background:linear-gradient(135deg,#667eea,#764ba2);padding:18px 16px 20px;color:#fff;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.header h1{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;letter-spacing:.05em;margin-bottom:3px;position:relative;z-index:1}
+.header p{font-size:.75rem;opacity:.8;position:relative;z-index:1}
 
-/* STATS */
-.stats-strip {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:10px; padding:16px;
-}
-.stat {
-  background:var(--card); border-radius:14px;
-  padding:12px 8px; text-align:center;
-  box-shadow:0 2px 12px rgba(0,0,0,0.08);
-  border-top:3px solid transparent;
-}
-.stat.s-pending { border-top-color:#f6ad55; }
-.stat.s-off     { border-top-color:#fc8181; }
-.stat.s-on      { border-top-color:#68d391; }
-.stat-num {
-  font-family:'JetBrains Mono',monospace;
-  font-size:1.7rem; font-weight:700;
-  display:block; line-height:1; margin-bottom:4px;
-}
-.s-pending .stat-num { color:#dd6b20; }
-.s-off .stat-num     { color:#e53e3e; }
-.s-on .stat-num      { color:#276749; }
-.stat-label { font-size:0.65rem; color:var(--text-dim); font-weight:700; text-transform:uppercase; letter-spacing:0.06em; }
+.stats-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
+.stat{background:var(--card);border-radius:14px;padding:11px 8px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.07);border-top:3px solid transparent}
+.stat.sp{border-top-color:#f6ad55}.stat.so{border-top-color:#fc8181}.stat.sn{border-top-color:#68d391}
+.stat-num{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;display:block;line-height:1;margin-bottom:3px}
+.sp .stat-num{color:#dd6b20}.so .stat-num{color:#e53e3e}.sn .stat-num{color:#276749}
+.stat-label{font-size:.62rem;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 
-/* INPUT */
-.input-wrap { padding:0 16px 16px; }
-.input-box {
-  background:var(--card); border-radius:16px;
-  box-shadow:0 2px 12px rgba(0,0,0,0.08);
-  overflow:hidden; border:2px solid transparent;
-  transition:border-color 0.2s;
-}
-.input-box:focus-within { border-color:var(--accent); }
-.input-top {
-  padding:10px 14px; background:#f7fafc;
-  border-bottom:1px solid var(--border);
-  font-size:0.7rem; font-weight:700; color:var(--text-dim);
-  letter-spacing:0.08em; text-transform:uppercase;
-  display:flex; align-items:center; justify-content:space-between;
-}
-.input-tag {
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:white; padding:2px 8px; border-radius:20px; font-size:0.62rem;
-}
-textarea {
-  width:100%; border:none; outline:none;
-  padding:14px; font-family:'JetBrains Mono',monospace;
-  font-size:0.78rem; line-height:1.6; color:var(--text);
-  background:transparent; resize:vertical; min-height:140px;
-}
-textarea::placeholder { color:#a0aec0; }
+.tabs{display:flex;padding:0 16px 14px}
+.tab{flex:1;padding:10px;text-align:center;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:all .18s;color:var(--dim)}
+.tab:first-child{border-radius:12px 0 0 12px}
+.tab:last-child{border-radius:0 12px 12px 0}
+.tab.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent;box-shadow:0 3px 12px rgba(102,126,234,.35)}
 
-/* BUTTONS */
-.btn-row { display:flex; gap:8px; padding:0 16px 16px; flex-wrap:wrap; }
-.btn {
-  font-family:'Nunito',sans-serif; font-weight:700;
-  font-size:0.8rem; border:none; cursor:pointer;
-  border-radius:12px; padding:11px 18px;
-  transition:all 0.18s; display:flex;
-  align-items:center; gap:6px;
-}
-.btn:active { transform:scale(0.95); }
-.btn-primary {
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:white; box-shadow:0 4px 15px rgba(102,126,234,0.4); flex:1; justify-content:center;
-}
-.btn-copy {
-  background:#ebf8ff; color:#2b6cb0;
-  border:1.5px solid #63b3ed;
-}
-.btn-copy.copied {
-  background:#f0fff4; color:#276749; border-color:#68d391;
-}
-.btn-clear {
-  background:#fff5f5; color:#c53030;
-  border:1.5px solid #fc8181;
-}
+.panel{display:none}.panel.active{display:block}
 
-/* LEGEND */
-.legend {
-  display:flex; gap:10px; padding:0 16px 12px; flex-wrap:wrap;
-}
-.leg-item { display:flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:600; color:var(--text-dim); }
-.leg-dot { width:10px; height:10px; border-radius:3px; }
-.leg-dot.pending { background:#f6ad55; }
-.leg-dot.off     { background:#fc8181; }
-.leg-dot.on      { background:#68d391; }
+.input-wrap{padding:0 16px 14px}
+.input-box{background:var(--card);border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.07);overflow:hidden;border:2px solid transparent;transition:border-color .2s}
+.input-box:focus-within{border-color:var(--accent)}
+.input-top{padding:9px 14px;background:#f7fafc;border-bottom:1px solid var(--border);font-size:.68rem;font-weight:700;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
+.input-tag{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:2px 8px;border-radius:20px;font-size:.6rem}
+textarea{width:100%;border:none;outline:none;padding:13px;font-family:'JetBrains Mono',monospace;font-size:.76rem;line-height:1.6;color:var(--text);background:transparent;resize:vertical;min-height:160px}
+textarea::placeholder{color:#a0aec0}
 
-/* WARNING BOX */
-.warning-box {
-  margin:0 16px 12px;
-  background:#fffff0; border:1.5px solid #f6e05e;
-  border-radius:12px; padding:12px 14px;
-}
-.warning-title {
-  font-size:0.72rem; font-weight:800; color:#744210;
-  text-transform:uppercase; letter-spacing:0.06em;
-  margin-bottom:10px; display:flex; align-items:center; gap:6px;
-}
-.warning-chips { display:flex; flex-wrap:wrap; gap:6px; }
-.warning-chip {
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.82rem; font-weight:700;
-  background:#fefcbf; color:#744210;
-  border:1.5px solid #f6e05e;
-  padding:5px 12px; border-radius:8px;
-}
+.btn-row{display:flex;gap:8px;padding:0 16px 14px;flex-wrap:wrap}
+.btn{font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;border:none;cursor:pointer;border-radius:12px;padding:10px 16px;transition:all .18s;display:flex;align-items:center;gap:6px}
+.btn:active{transform:scale(.95)}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 14px rgba(102,126,234,.4);flex:1;justify-content:center}
+.btn-copy{background:#ebf8ff;color:#2b6cb0;border:1.5px solid #63b3ed}
+.btn-copy.copied{background:#f0fff4;color:#276749;border-color:#68d391}
+.btn-clear{background:#fff5f5;color:#c53030;border:1.5px solid #fc8181}
 
-/* SECTION */
-.section { padding:0 16px 8px; }
-.section-title {
-  font-size:0.72rem; font-weight:800;
-  text-transform:uppercase; letter-spacing:0.1em;
-  color:var(--text-dim); margin-bottom:10px;
-  display:flex; align-items:center; gap:8px;
-}
-.section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.legend{display:flex;gap:10px;padding:0 16px 10px;flex-wrap:wrap;align-items:center}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:.7rem;font-weight:600;color:var(--dim)}
+.leg-dot{width:9px;height:9px;border-radius:3px}
+.leg-dot.lp{background:#f6ad55}.leg-dot.lo{background:#fc8181}.leg-dot.ln{background:#68d391}
+.leg-hint{font-size:.63rem;color:#a0aec0;font-weight:600;margin-left:auto}
 
-/* GROUP CARD */
-.group-card {
-  background:var(--card); border-radius:16px;
-  box-shadow:0 2px 12px rgba(0,0,0,0.08);
-  margin-bottom:12px; overflow:hidden;
-}
-.group-header {
-  padding:11px 14px;
-  background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(118,75,162,0.08));
-  border-bottom:1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between;
-}
-.group-name {
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.8rem; font-weight:700; color:var(--accent);
-}
-.group-floor {
-  font-size:0.68rem; color:var(--text-dim);
-  background:var(--border); padding:2px 8px;
-  border-radius:20px; font-weight:600;
-}
-.group-shops { padding:12px; display:flex; flex-wrap:wrap; gap:8px; }
+.warn-box{margin:0 16px 12px;background:#fffff0;border:1.5px solid #f6e05e;border-radius:12px;padding:11px 13px}
+.warn-title{font-size:.7rem;font-weight:800;color:#744210;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.warn-chips{display:flex;flex-wrap:wrap;gap:5px}
+.warn-chip{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;background:#fefcbf;color:#744210;border:1.5px solid #f6e05e;padding:4px 10px;border-radius:7px}
+
+.sec{padding:0 16px 6px}
+.sec-title{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.g-card{background:var(--card);border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden}
+.g-head{padding:10px 13px;background:linear-gradient(135deg,rgba(102,126,234,.08),rgba(118,75,162,.08));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.g-name{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;color:var(--accent)}
+.g-floor{font-size:.65rem;color:var(--dim);background:var(--border);padding:2px 8px;border-radius:20px;font-weight:600}
+.g-shops{padding:11px;display:flex;flex-wrap:wrap;gap:7px;min-height:20px}
+
+/* SHOP WRAP */
+.sw{position:relative;display:inline-flex}
+.s-del{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#e53e3e;color:#fff;border:2px solid #fff;font-size:.65rem;font-weight:900;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:10;box-shadow:0 2px 6px rgba(0,0,0,.2);line-height:1}
+.sw.delmode .s-del{display:flex}
+.sw.delmode .s-btn{animation:wiggle .3s ease infinite alternate;transform-origin:center}
+@keyframes wiggle{from{transform:rotate(-2deg) scale(1.02)}to{transform:rotate(2deg) scale(1.02)}}
 
 /* SHOP BUTTON */
-.shop-btn {
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.82rem; font-weight:700;
-  width:58px; height:52px; border-radius:12px;
-  border:2px solid transparent; cursor:pointer;
-  transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1);
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  gap:2px; user-select:none; -webkit-user-select:none;
-}
-.shop-btn:active { transform:scale(0.88); }
-.shop-num { font-size:0.82rem; line-height:1; }
-.shop-icon { font-size:0.62rem; line-height:1; }
-
-.shop-btn.pending {
-  background:#fffaf0; border-color:#f6ad55; color:#c05621;
-  box-shadow:0 2px 8px rgba(246,173,85,0.25);
-}
-.shop-btn.off {
-  background:#fff5f5; border-color:#fc8181; color:#c53030;
-  box-shadow:0 2px 8px rgba(252,129,129,0.3);
-  text-decoration:line-through; text-decoration-color:#fc8181;
-}
-.shop-btn.on {
-  background:#f0fff4; border-color:#68d391; color:#276749;
-  box-shadow:0 2px 8px rgba(104,211,145,0.35);
-}
+.s-btn{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;min-width:52px;height:50px;padding:0 8px;border-radius:11px;border:2px solid transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;user-select:none;-webkit-user-select:none;transition:background .15s,border-color .15s,box-shadow .15s}
+.s-btn.pending{background:#fffaf0;border-color:#f6ad55;color:#c05621;box-shadow:0 2px 7px rgba(246,173,85,.25)}
+.s-btn.off{background:#fff5f5;border-color:#fc8181;color:#c53030;box-shadow:0 2px 7px rgba(252,129,129,.3);text-decoration:line-through;text-decoration-color:#fc8181}
+.s-btn.on{background:#f0fff4;border-color:#68d391;color:#276749;box-shadow:0 2px 7px rgba(104,211,145,.35)}
+.s-num{font-size:.8rem;line-height:1}
+.s-ico{font-size:.58rem;line-height:1}
 
 /* SUMMARY */
-.summary-section { padding:0 16px; margin-top:4px; }
-.sum-card {
-  border-radius:16px; padding:14px;
-  margin-bottom:10px; border:2px solid transparent;
-}
-.sum-card.pending { background:#fffaf0; border-color:rgba(246,173,85,0.4); }
-.sum-card.off     { background:#fff5f5; border-color:rgba(252,129,129,0.4); }
-.sum-card.on      { background:#f0fff4; border-color:rgba(104,211,145,0.4); }
-.sum-title {
-  font-size:0.72rem; font-weight:800;
-  text-transform:uppercase; letter-spacing:0.08em;
-  margin-bottom:10px; display:flex; align-items:center; gap:7px;
-}
-.sum-card.pending .sum-title { color:#c05621; }
-.sum-card.off .sum-title     { color:#c53030; }
-.sum-card.on .sum-title      { color:#276749; }
-.sum-count {
-  padding:1px 8px; border-radius:20px; font-size:0.65rem;
-}
-.sum-card.pending .sum-count { background:#feebc8; }
-.sum-card.off .sum-count     { background:#fed7d7; }
-.sum-card.on .sum-count      { background:#c6f6d5; }
-.sum-chips { display:flex; flex-wrap:wrap; gap:6px; }
-.sum-chip {
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.78rem; font-weight:700;
-  padding:4px 10px; border-radius:8px;
-}
-.sum-card.pending .sum-chip { background:#feebc8; color:#c05621; }
-.sum-card.off .sum-chip     { background:#fed7d7; color:#c53030; }
-.sum-card.on .sum-chip      { background:#c6f6d5; color:#276749; }
-.empty-msg { font-size:0.75rem; color:var(--text-dim); font-style:italic; }
+.sum-wrap{padding:0 16px}
+.sum-card{border-radius:14px;padding:13px;margin-bottom:10px;border:2px solid transparent}
+.sum-card.sp{background:#fffaf0;border-color:rgba(246,173,85,.35)}
+.sum-card.so{background:#fff5f5;border-color:rgba(252,129,129,.35)}
+.sum-card.sn{background:#f0fff4;border-color:rgba(104,211,145,.35)}
+.sum-title{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.sum-card.sp .sum-title{color:#c05621}.sum-card.so .sum-title{color:#c53030}.sum-card.sn .sum-title{color:#276749}
+.sum-cnt{padding:1px 7px;border-radius:20px;font-size:.63rem}
+.sum-card.sp .sum-cnt{background:#feebc8}.sum-card.so .sum-cnt{background:#fed7d7}.sum-card.sn .sum-cnt{background:#c6f6d5}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;padding:4px 9px;border-radius:7px}
+.sum-card.sp .chip{background:#feebc8;color:#c05621}
+.sum-card.so .chip{background:#fed7d7;color:#c53030}
+.sum-card.sn .chip{background:#c6f6d5;color:#276749}
+.empty-msg{font-size:.73rem;color:var(--dim);font-style:italic}
 
-.divider { height:1px; background:var(--border); margin:8px 16px 16px; }
-.hidden { display:none !important; }
+.divider{height:1px;background:var(--border);margin:6px 16px 14px}
+.hidden{display:none!important}
 
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(10px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-@keyframes popIn {
-  from { opacity:0; transform:scale(0.7); }
-  to   { opacity:1; transform:scale(1); }
-}
+.empty-state{text-align:center;padding:40px 20px;color:var(--dim)}
+.empty-state .ico{font-size:2.5rem;margin-bottom:12px}
+.empty-state .ttl{font-weight:700;font-size:.9rem;margin-bottom:6px}
+.empty-state .sub{font-size:.78rem}
+
+.hint-box{padding:0 16px 16px;font-size:.72rem;color:var(--dim);line-height:1.8}
+.hint-box code{background:#f7fafc;padding:2px 6px;border-radius:5px;font-size:.7rem;font-family:'JetBrains Mono',monospace}
+
+.save-toast{position:fixed;bottom:16px;right:16px;background:#276749;color:#fff;padding:8px 14px;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:999;pointer-events:none}
+
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal-ttl{font-weight:800;font-size:.88rem;margin-bottom:11px}
+.modal-box textarea{width:100%;height:175px;border:1.5px solid var(--border);border-radius:10px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:.73rem;line-height:1.6;resize:none;outline:none}
+.modal-btns{display:flex;gap:8px;margin-top:11px}
+.mbtn-sel{flex:1;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer}
+.mbtn-close{background:#f7fafc;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;color:var(--dim)}
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>🏬 Дўкон Назорати</h1>
-  <p>Интерактивный менеджер магазинов · Гипермаркет</p>
+  <p>Менеджер магазинов · Гипермаркет Зафар</p>
 </div>
 
 <div class="stats-strip">
-  <div class="stat s-pending">
-    <span class="stat-num" id="cnt-pending">0</span>
-    <div class="stat-label">⏳ Ожидают</div>
-  </div>
-  <div class="stat s-off">
-    <span class="stat-num" id="cnt-off">0</span>
-    <div class="stat-label">🔴 Отключены</div>
-  </div>
-  <div class="stat s-on">
-    <span class="stat-num" id="cnt-on">0</span>
-    <div class="stat-label">🟢 Включены</div>
-  </div>
+  <div class="stat sp"><span class="stat-num" id="cntP">0</span><div class="stat-label">⏳ Ожидают</div></div>
+  <div class="stat so"><span class="stat-num" id="cntO">0</span><div class="stat-label">🔴 Отключены</div></div>
+  <div class="stat sn"><span class="stat-num" id="cntN">0</span><div class="stat-label">🟢 Включены</div></div>
 </div>
 
-<div class="input-wrap">
-  <div class="input-box">
-    <div class="input-top">
-      <span>📋 Вставьте список магазинов</span>
-      <span class="input-tag">Узб / Рус</span>
+<div class="tabs">
+  <div class="tab active" id="tab-list" onclick="switchTab('list')">📋 Список</div>
+  <div class="tab" id="tab-edit" onclick="switchTab('edit')">✏️ Редактор</div>
+</div>
+
+<!-- ═══ СПИСОК ═══ -->
+<div class="panel active" id="panel-list">
+
+  <div id="appContent" class="hidden">
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot lp"></div>Ожидает</div>
+      <div class="leg-item"><div class="leg-dot lo"></div>Отключён</div>
+      <div class="leg-item"><div class="leg-dot ln"></div>Включён</div>
+      <span class="leg-hint">Удержите для удаления</span>
     </div>
-    <textarea id="inputText" placeholder="ШО-1 (1-этаж): 134, 136, 139, 163
-ШО-3 (1-этаж): 208, 258, 259
-ШО-4 (1-этаж): 146, 147, 173, 184
-ШО-1 (2-этаж): 275, 303, 302, 298, 339
-ШО-2 (2-этаж): 385
-ШО-3 (2-этаж): 324, 355
-ШО-4 (2-этаж): 293, 291, 283, 285, 288, 289, 329, 330, 331, 332
+
+    <div id="warnBox" class="warn-box hidden">
+      <div class="warn-title">⚠️ Не отключаются отдельно</div>
+      <div class="g-shops" id="warnChips" style="padding:0;margin-top:4px"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-title">Магазины по секциям</div>
+      <div id="groupsWrap"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sum-wrap">
+      <div class="sec" style="padding:0 0 8px"><div class="sec-title">Сводка</div></div>
+      <div class="sum-card sp">
+        <div class="sum-title">⏳ Не отключены <span class="sum-cnt" id="sumCP">0</span></div>
+        <div class="chips" id="sumP"><span class="empty-msg">Все обработаны</span></div>
+      </div>
+      <div class="sum-card so">
+        <div class="sum-title">🔴 Отключены <span class="sum-cnt" id="sumCO">0</span></div>
+        <div class="chips" id="sumO"><span class="empty-msg">Нет отключённых</span></div>
+      </div>
+      <div class="sum-card sn">
+        <div class="sum-title">🟢 Включены <span class="sum-cnt" id="sumCN">0</span></div>
+        <div class="chips" id="sumN"><span class="empty-msg">Нет включённых</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="emptyState" class="empty-state">
+    <div class="ico">🏬</div>
+    <div class="ttl">Список пуст</div>
+    <div class="sub">Перейдите во вкладку <b>✏️ Редактор</b><br>и вставьте список магазинов</div>
+  </div>
+
+  <div id="listBtns" class="btn-row hidden">
+    <button class="btn btn-copy" id="copyBtn" onclick="copySummary()">📋 Скопировать</button>
+    <button class="btn btn-clear" onclick="clearAll()">🗑 Очистить всё</button>
+  </div>
+
+</div>
+
+<!-- ═══ РЕДАКТОР ═══ -->
+<div class="panel" id="panel-edit">
+  <div class="input-wrap">
+    <div class="input-box">
+      <div class="input-top">
+        <span>📋 Список магазинов</span>
+        <span class="input-tag">Узб / Рус</span>
+      </div>
+      <textarea id="inputText" placeholder="ШО-1 (подвал): 1, 2, 3, 4, 23, 26
+ШО-2 (подвал): 102, 103, 106, 127
+ШО-1 (1-этаж): 134, 135, 136, 139
+ШО-2 (1-этаж): 192, 227, 228, 229
+...
 
 ⚠️ Эти магазины не отключаются отдельно:
-гипермаркет, зафар, назорачиси"></textarea>
-  </div>
-</div>
-
-<div class="btn-row">
-  <button class="btn btn-primary" onclick="parseAndRender()">⚡ Сформировать список</button>
-  <button class="btn btn-copy" id="copyBtn" onclick="copySummary()">📋 Скопировать</button>
-  <button class="btn btn-clear" onclick="clearAll()">🗑 Очистить</button>
-</div>
-
-<div id="appContent" class="hidden">
-
-  <div class="legend">
-    <div class="leg-item"><div class="leg-dot pending"></div>Ожидает</div>
-    <div class="leg-item"><div class="leg-dot off"></div>Отключён</div>
-    <div class="leg-item"><div class="leg-dot on"></div>Включён</div>
-  </div>
-
-  <div id="warningBox" class="warning-box hidden">
-    <div class="warning-title">⚠️ Не отключаются отдельно</div>
-    <div class="warning-chips" id="warningChips"></div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Магазины по секциям</div>
-    <div id="groupsContainer"></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="summary-section">
-    <div class="section" style="padding:0 0 8px">
-      <div class="section-title">Сводка статусов</div>
-    </div>
-
-    <div class="sum-card pending">
-      <div class="sum-title">
-        ⏳ Ещё не отключены
-        <span class="sum-count" id="sum-pending-count">0</span>
-      </div>
-      <div class="sum-chips" id="sum-pending">
-        <span class="empty-msg">Все магазины обработаны</span>
-      </div>
-    </div>
-
-    <div class="sum-card off">
-      <div class="sum-title">
-        🔴 Уже отключены
-        <span class="sum-count" id="sum-off-count">0</span>
-      </div>
-      <div class="sum-chips" id="sum-off">
-        <span class="empty-msg">Нет отключённых</span>
-      </div>
-    </div>
-
-    <div class="sum-card on">
-      <div class="sum-title">
-        🟢 Уже включены
-        <span class="sum-count" id="sum-on-count">0</span>
-      </div>
-      <div class="sum-chips" id="sum-on">
-        <span class="empty-msg">Нет включённых</span>
-      </div>
+100, 188, 168, 343, 344"></textarea>
     </div>
   </div>
-
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="applyEditor()">⚡ Сформировать список</button>
+    <button class="btn btn-clear" onclick="clearEditor()">🗑 Очистить</button>
+  </div>
+  <div class="hint-box">
+    <b>Формат:</b> <code>ШО-1 (1-этаж): 134, 136, 139</code><br>
+    💾 Данные сохраняются автоматически<br>
+    ➕ Новый текст <b>добавляется</b> к существующему списку<br>
+    🗑 <b>Долгое нажатие</b> на магазин — удалить
+  </div>
 </div>
 
 <script>
-var shopStates = {};
-var groups = [];
-var warningNums = [];
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+var G       = [];   // groups: [{name, floor, shops:[id,...]}]
+var ST      = {};   // shopStates: {id: 'pending'|'off'|'on'}
+var WARN    = [];   // warning numbers
+var delWrap = null; // currently in delete mode
 
+var K_G = 'dkn_groups';
+var K_S = 'dkn_states';
+var K_W = 'dkn_warn';
+var K_T = 'dkn_text';
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+window.onload = function() {
+  var t = lsGet(K_T);
+  if (t) document.getElementById('inputText').value = t;
+
+  var sg = lsGet(K_G), ss = lsGet(K_S), sw = lsGet(K_W);
+  if (sg && ss) {
+    try {
+      G    = JSON.parse(sg);
+      ST   = JSON.parse(ss);
+      WARN = sw ? JSON.parse(sw) : [];
+      // Register warn shops in ST if missing
+      WARN.forEach(function(n){ var sid=String(n); if(!ST[sid]) ST[sid]='pending'; });
+      renderAll();
+      showApp();
+    } catch(e) { G=[]; ST={}; WARN=[]; }
+  }
+
+  document.getElementById('inputText').addEventListener('input', function(){
+    lsSet(K_T, this.value);
+  });
+
+  // Tap outside → cancel delete mode
+  document.addEventListener('touchstart', cancelDelMode, {passive:true});
+  document.addEventListener('mousedown',  cancelDelMode);
+};
+
+// ══════════════════════════════════════════
+//  LOCAL STORAGE HELPERS
+// ══════════════════════════════════════════
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+function saveAll(){
+  lsSet(K_G, JSON.stringify(G));
+  lsSet(K_S, JSON.stringify(ST));
+  lsSet(K_W, JSON.stringify(WARN));
+}
+function saveStates(){ lsSet(K_S, JSON.stringify(ST)); }
+
+// ══════════════════════════════════════════
+//  TABS
+// ══════════════════════════════════════════
+function switchTab(t) {
+  ['list','edit'].forEach(function(x){
+    document.getElementById('tab-'+x).classList.toggle('active', x===t);
+    document.getElementById('panel-'+x).classList.toggle('active', x===t);
+  });
+}
+
+// ══════════════════════════════════════════
+//  PARSE HELPERS
+// ══════════════════════════════════════════
 function extractNums(str) {
-  var result = [];
-  var matches = str.match(/\b\d{1,4}\b/g);
-  if (matches) {
-    for (var i = 0; i < matches.length; i++) {
-      var n = parseInt(matches[i]);
-      if (n > 0 && n < 10000) result.push(n);
-    }
-  }
-  return result;
+  var r=[], m=str.match(/\b\d{1,4}\b/g);
+  if (m) m.forEach(function(x){ var n=+x; if(n>0&&n<10000) r.push(n); });
+  return r;
 }
 
-function parseText(text) {
-  groups = [];
-  shopStates = {};
-  warningNums = [];
-
-  var lines = text.split('\n');
-  var inWarning = false;
-
-  for (var i = 0; i < lines.length; i++) {
-    var line = lines[i].trim();
-    if (!line) continue;
-
-    // Detect warning section
-    if (line.indexOf('⚠️') !== -1 || line.toLowerCase().indexOf('не отключ') !== -1) {
-      inWarning = true;
-      // grab numbers from this line too
-      var wn = extractNums(line);
-      for (var k = 0; k < wn.length; k++) warningNums.push(wn[k]);
-      continue;
+function parseInto(text, outGroups, outStates, outWarn) {
+  var lines=text.split('\n'), inW=false;
+  for (var i=0;i<lines.length;i++) {
+    var ln=lines[i].trim(); if(!ln) continue;
+    if (ln.indexOf('⚠️')!==-1 || ln.toLowerCase().indexOf('не отключ')!==-1) {
+      inW=true; extractNums(ln).forEach(function(n){ outWarn.push(n); }); continue;
     }
-
-    if (inWarning) {
-      // If line starts with a letter and contains colon pattern like "ШО-1 (...):" — it's a new group, stop warning
-      var isGroup = /^[А-ЯA-ZШ]/.test(line) && line.indexOf(':') !== -1;
-      if (isGroup) {
-        inWarning = false;
-        // fall through to group parsing
-      } else {
-        // only collect numbers
-        var wn2 = extractNums(line);
-        for (var k2 = 0; k2 < wn2.length; k2++) warningNums.push(wn2[k2]);
-        continue;
-      }
+    if (inW) {
+      if (/^[А-ЯA-ZШ]/.test(ln) && ln.indexOf(':')!==-1) { inW=false; }
+      else { extractNums(ln).forEach(function(n){ outWarn.push(n); }); continue; }
     }
-
-    // Try to parse group line like "ШО-1 (1-этаж): 134, 136, 139"
-    var m1 = line.match(/^(.+?)\s*\(([^)]+)\)\s*:\s*(.+)/);
+    var m1=ln.match(/^(.+?)\s*\(([^)]+)\)\s*:\s*(.+)/);
     if (m1) {
-      var gName  = m1[1].trim();
-      var gFloor = m1[2].trim();
-      var nums   = extractNums(m1[3]);
-      if (nums.length > 0) {
-        var shops = [];
-        for (var j = 0; j < nums.length; j++) {
-          shops.push(String(nums[j]));
-          shopStates[String(nums[j])] = 'pending';
-        }
-        groups.push({ name: gName, floor: gFloor, shops: shops });
+      var nums=extractNums(m1[3]);
+      if (nums.length) {
+        outGroups.push({name:m1[1].trim(),floor:m1[2].trim(),shops:nums.map(function(n){
+          var id=String(n); if(!outStates[id]) outStates[id]='pending'; return id;
+        })});
       }
       continue;
     }
-
-    // Try simple "GroupName: 1, 2, 3"
-    var m2 = line.match(/^([^:]+):\s*(.+)/);
+    var m2=ln.match(/^([^:]+):\s*(.+)/);
     if (m2) {
-      var nums2 = extractNums(m2[2]);
-      if (nums2.length > 0) {
-        var shops2 = [];
-        for (var j2 = 0; j2 < nums2.length; j2++) {
-          shops2.push(String(nums2[j2]));
-          shopStates[String(nums2[j2])] = 'pending';
-        }
-        groups.push({ name: m2[1].trim(), floor: '', shops: shops2 });
+      var nums2=extractNums(m2[2]);
+      if (nums2.length) {
+        outGroups.push({name:m2[1].trim(),floor:'',shops:nums2.map(function(n){
+          var id=String(n); if(!outStates[id]) outStates[id]='pending'; return id;
+        })});
       }
     }
   }
 }
 
-function toggle(shopId) {
-  var cur = shopStates[shopId] || 'pending';
-  var next = cur === 'pending' ? 'off' : (cur === 'off' ? 'on' : 'pending');
-  shopStates[shopId] = next;
-  var btn = document.getElementById('btn-' + shopId);
-  if (btn) {
-    btn.className = 'shop-btn ' + next;
-    var icons = { pending:'⏳', off:'🔴', on:'🟢' };
-    btn.querySelector('.shop-icon').textContent = icons[next];
-  }
-  updateSummary();
-  updateStats();
+// ══════════════════════════════════════════
+//  APPLY EDITOR  (MERGE into existing)
+// ══════════════════════════════════════════
+function applyEditor() {
+  var text=document.getElementById('inputText').value.trim();
+  if (!text) { alert('Вставьте список магазинов!'); return; }
+
+  var newG=[], newST=JSON.parse(JSON.stringify(ST)), newW=[];
+  parseInto(text, newG, newST, newW);
+  if (!newG.length) { alert('Магазины не найдены.\nПример: ШО-1 (1-этаж): 134, 136, 139'); return; }
+
+  // Merge groups
+  newG.forEach(function(ng) {
+    var found=-1;
+    G.forEach(function(eg,i){ if(eg.name===ng.name&&eg.floor===ng.floor) found=i; });
+    if (found===-1) { G.push({name:ng.name,floor:ng.floor,shops:[]}); found=G.length-1; }
+    ng.shops.forEach(function(sid){
+      if (G[found].shops.indexOf(sid)===-1) G[found].shops.push(sid);
+      if (!ST[sid]) ST[sid]='pending';
+    });
+  });
+
+  // Merge states for genuinely new shops
+  Object.keys(newST).forEach(function(id){ if(!ST[id]) ST[id]=newST[id]; });
+
+  // Merge warnings
+  newW.forEach(function(n){
+    if (WARN.indexOf(n)===-1) WARN.push(n);
+    var sid=String(n);
+    if (!ST[sid]) ST[sid]='pending';
+  });
+
+  saveAll();
+  renderAll();
+  showApp();
+  switchTab('list');
+  toast('✅ Список обновлён и сохранён!');
 }
 
-function updateStats() {
-  var pending = 0, off = 0, on = 0;
-  var keys = Object.keys(shopStates);
-  for (var i = 0; i < keys.length; i++) {
-    var s = shopStates[keys[i]];
-    if (s === 'pending') pending++;
-    else if (s === 'off') off++;
-    else on++;
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function renderAll() { renderGroups(); renderWarn(); updateStats(); updateSummary(); }
+
+function renderGroups() {
+  var wrap=document.getElementById('groupsWrap');
+  wrap.innerHTML='';
+  G.forEach(function(g, gi) {
+    var card=document.createElement('div');
+    card.className='g-card';
+    card.innerHTML=
+      '<div class="g-head">'+
+        '<span class="g-name">'+escH(g.name)+'</span>'+
+        (g.floor?'<span class="g-floor">'+escH(g.floor)+'</span>':'')+
+      '</div>'+
+      '<div class="g-shops" id="gs'+gi+'"></div>';
+    wrap.appendChild(card);
+    renderShops(gi);
+  });
+}
+
+function renderShops(gi) {
+  var el=document.getElementById('gs'+gi);
+  if (!el) return;
+  el.innerHTML='';
+  G[gi].shops.forEach(function(sid) {
+    el.appendChild(makeShopWrap(sid, gi));
+  });
+}
+
+function makeShopWrap(sid, gi) {
+  var state=ST[sid]||'pending';
+  var sw=document.createElement('div');
+  sw.className='sw';
+  sw.id='sw'+sid;
+
+  // Delete button
+  var del=document.createElement('button');
+  del.className='s-del';
+  del.textContent='✕';
+  del.addEventListener('click', function(e){
+    e.stopPropagation();
+    doDeleteShop(sid, gi);
+  });
+
+  // Shop button
+  var btn=document.createElement('button');
+  btn.className='s-btn '+state;
+  btn.id='sb'+sid;
+  btn.innerHTML='<span class="s-num">'+sid+'</span><span class="s-ico">'+ico(state)+'</span>';
+
+  // Touch/click handling
+  var timer=null, fired=false;
+
+  function onStart(e) {
+    fired=false;
+    timer=setTimeout(function(){
+      fired=true;
+      activateDelMode(sw);
+    }, 600);
   }
-  document.getElementById('cnt-pending').textContent = pending;
-  document.getElementById('cnt-off').textContent = off;
-  document.getElementById('cnt-on').textContent = on;
+  function onEnd(e) {
+    clearTimeout(timer);
+    if (!fired) {
+      // only toggle if NOT in del mode
+      if (!sw.classList.contains('delmode')) {
+        doToggle(sid);
+      }
+    }
+  }
+  function onMove() { clearTimeout(timer); }
+
+  btn.addEventListener('touchstart', onStart, {passive:true});
+  btn.addEventListener('touchend',   onEnd);
+  btn.addEventListener('touchmove',  onMove, {passive:true});
+  btn.addEventListener('mousedown',  onStart);
+  btn.addEventListener('mouseup',    onEnd);
+  btn.addEventListener('mouseleave', function(){ clearTimeout(timer); });
+
+  sw.appendChild(del);
+  sw.appendChild(btn);
+  return sw;
+}
+
+function activateDelMode(sw) {
+  // deactivate previous
+  if (delWrap && delWrap !== sw) delWrap.classList.remove('delmode');
+  delWrap=sw;
+  sw.classList.add('delmode');
+  if (navigator.vibrate) navigator.vibrate(60);
+  // auto cancel after 5s
+  setTimeout(function(){ if(sw.classList.contains('delmode')) sw.classList.remove('delmode'); }, 5000);
+}
+
+function cancelDelMode(e) {
+  if (!delWrap) return;
+  if (!delWrap.contains(e.target)) {
+    delWrap.classList.remove('delmode');
+    delWrap=null;
+  }
+}
+
+// ══════════════════════════════════════════
+//  TOGGLE
+// ══════════════════════════════════════════
+function ico(s){ return s==='pending'?'⏳':s==='off'?'🔴':'🟢'; }
+
+function doToggle(sid) {
+  var cur=ST[sid]||'pending';
+  ST[sid]=cur==='pending'?'off':cur==='off'?'on':'pending';
+  var btn=document.getElementById('sb'+sid);
+  if (btn) {
+    btn.className='s-btn '+ST[sid];
+    btn.querySelector('.s-ico').textContent=ico(ST[sid]);
+  }
+  updateStats(); updateSummary(); saveStates();
+}
+
+// ══════════════════════════════════════════
+//  DELETE SHOP
+// ══════════════════════════════════════════
+function doDeleteShop(sid, gi) {
+  if (gi === -1) {
+    // Remove from warn list
+    WARN = WARN.filter(function(n){ return String(n) !== sid; });
+  } else {
+    G[gi].shops = G[gi].shops.filter(function(s){ return s !== sid; });
+  }
+  delete ST[sid];
+  delWrap = null;
+  if (gi === -1) { renderWarn(); }
+  else { renderShops(gi); }
+  updateStats(); updateSummary(); saveAll();
+  toast('🗑 Магазин '+sid+' удалён');
+}
+
+// ══════════════════════════════════════════
+//  WARNING
+// ══════════════════════════════════════════
+//  WARNING — interactive shop buttons
+// ══════════════════════════════════════════
+function renderWarn() {
+  var wb=document.getElementById('warnBox');
+  var wc=document.getElementById('warnChips');
+  if (!WARN.length) { wb.classList.add('hidden'); return; }
+
+  // Register warn shops in ST if not yet present
+  WARN.forEach(function(n){
+    var sid=String(n);
+    if (!ST[sid]) ST[sid]='pending';
+  });
+
+  wc.innerHTML='';
+  WARN.forEach(function(n) {
+    var sid=String(n);
+    wc.appendChild(makeShopWrap(sid, -1)); // gi=-1 means warn group
+  });
+  wb.classList.remove('hidden');
+}
+
+// ══════════════════════════════════════════
+//  STATS & SUMMARY
+// ══════════════════════════════════════════
+function updateStats() {
+  var p=0,o=0,n=0, keys=Object.keys(ST);
+  keys.forEach(function(k){ var s=ST[k]; if(s==='pending')p++; else if(s==='off')o++; else n++; });
+  document.getElementById('cntP').textContent=p;
+  document.getElementById('cntO').textContent=o;
+  document.getElementById('cntN').textContent=n;
 }
 
 function updateSummary() {
-  var pending = [], off = [], on = [];
-  var keys = Object.keys(shopStates);
-  for (var i = 0; i < keys.length; i++) {
-    var id = keys[i];
-    var s  = shopStates[id];
-    if (s === 'pending') pending.push(id);
-    else if (s === 'off') off.push(id);
-    else on.push(id);
-  }
-  pending.sort(function(a,b){ return +a - +b; });
-  off.sort(function(a,b){ return +a - +b; });
-  on.sort(function(a,b){ return +a - +b; });
-
-  renderChips('sum-pending', pending, 'pending', 'Все магазины обработаны');
-  renderChips('sum-off',     off,     'off',     'Нет отключённых');
-  renderChips('sum-on',      on,      'on',      'Нет включённых');
-
-  document.getElementById('sum-pending-count').textContent = pending.length;
-  document.getElementById('sum-off-count').textContent     = off.length;
-  document.getElementById('sum-on-count').textContent      = on.length;
+  var p=[],o=[],n=[], keys=Object.keys(ST);
+  keys.forEach(function(k){ var s=ST[k]; if(s==='pending')p.push(k); else if(s==='off')o.push(k); else n.push(k); });
+  [p,o,n].forEach(function(a){ a.sort(function(a,b){ return +a-+b; }); });
+  setChips('sumP',p,'sp','Все обработаны');
+  setChips('sumO',o,'so','Нет отключённых');
+  setChips('sumN',n,'sn','Нет включённых');
+  document.getElementById('sumCP').textContent=p.length;
+  document.getElementById('sumCO').textContent=o.length;
+  document.getElementById('sumCN').textContent=n.length;
 }
 
-function renderChips(containerId, items, cls, emptyMsg) {
-  var el = document.getElementById(containerId);
-  if (items.length === 0) {
-    el.innerHTML = '<span class="empty-msg">' + emptyMsg + '</span>';
-    return;
-  }
-  var html = '';
-  for (var i = 0; i < items.length; i++) {
-    html += '<span class="sum-chip" style="animation:popIn 0.2s ease ' + (i*20) + 'ms both">' + items[i] + '</span>';
-  }
-  el.innerHTML = html;
+function setChips(id, arr, cls, empty) {
+  var el=document.getElementById(id);
+  if (!arr.length) { el.innerHTML='<span class="empty-msg">'+empty+'</span>'; return; }
+  el.innerHTML=arr.map(function(x,i){
+    return '<span class="chip" style="animation:none">'+x+'</span>';
+  }).join('');
 }
 
-function parseAndRender() {
-  var text = document.getElementById('inputText').value.trim();
-  if (!text) {
-    alert('Пожалуйста, вставьте текст со списком магазинов!');
-    return;
-  }
-
-  parseText(text);
-
-  if (groups.length === 0) {
-    alert('Магазины не найдены. Пример формата:\nШО-1 (1-этаж): 134, 136, 139');
-    return;
-  }
-
-  renderGroups();
-  renderWarning();
-  updateStats();
-  updateSummary();
-
+// ══════════════════════════════════════════
+//  SHOW / HIDE APP
+// ══════════════════════════════════════════
+function showApp() {
   document.getElementById('appContent').classList.remove('hidden');
-  setTimeout(function() {
-    document.getElementById('appContent').scrollIntoView({ behavior:'smooth', block:'start' });
-  }, 150);
+  document.getElementById('emptyState').classList.add('hidden');
+  document.getElementById('listBtns').classList.remove('hidden');
 }
 
-function renderGroups() {
-  var container = document.getElementById('groupsContainer');
-  container.innerHTML = '';
-
-  for (var gi = 0; gi < groups.length; gi++) {
-    var g = groups[gi];
-    var card = document.createElement('div');
-    card.className = 'group-card';
-    card.style.animation = 'fadeUp 0.3s ease ' + (gi * 60) + 'ms both';
-
-    var floorHtml = g.floor ? '<span class="group-floor">' + g.floor + '</span>' : '';
-    card.innerHTML =
-      '<div class="group-header">' +
-        '<span class="group-name">' + g.name + '</span>' +
-        floorHtml +
-      '</div>' +
-      '<div class="group-shops" id="gshops-' + gi + '"></div>';
-    container.appendChild(card);
-
-    var shopsEl = document.getElementById('gshops-' + gi);
-    for (var si = 0; si < g.shops.length; si++) {
-      var shopId = g.shops[si];
-      var btn = document.createElement('button');
-      btn.className = 'shop-btn pending';
-      btn.id = 'btn-' + shopId;
-      btn.setAttribute('onclick', 'toggle("' + shopId + '")');
-      btn.innerHTML = '<span class="shop-num">' + shopId + '</span><span class="shop-icon">⏳</span>';
-      shopsEl.appendChild(btn);
-    }
-  }
-}
-
-function renderWarning() {
-  var wb = document.getElementById('warningBox');
-  var wc = document.getElementById('warningChips');
-
-  if (warningNums.length > 0) {
-    var html = '';
-    for (var i = 0; i < warningNums.length; i++) {
-      html += '<span class="warning-chip">' + warningNums[i] + '</span>';
-    }
-    wc.innerHTML = html;
-    wb.classList.remove('hidden');
-  } else {
-    wb.classList.add('hidden');
-  }
+// ══════════════════════════════════════════
+//  COPY
+// ══════════════════════════════════════════
+function buildReport() {
+  var p=[],o=[],n=[], keys=Object.keys(ST);
+  keys.forEach(function(k){ var s=ST[k]; if(s==='pending')p.push(k); else if(s==='off')o.push(k); else n.push(k); });
+  [p,o,n].forEach(function(a){ a.sort(function(a,b){ return +a-+b; }); });
+  var now=new Date(), d=now.toLocaleDateString('ru-RU'), t=now.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+  return '📊 ОТЧЁТ — '+d+' '+t+'\n──────────────────────────\n'+
+    '⏳ Ожидают ('+p.length+'):\n'+(p.length?p.join(', '):'нет')+'\n\n'+
+    '🔴 Отключены ('+o.length+'):\n'+(o.length?o.join(', '):'нет')+'\n\n'+
+    '🟢 Включены ('+n.length+'):\n'+(n.length?n.join(', '):'нет')+'\n──────────────────────────';
 }
 
 function copySummary() {
-  var keys = Object.keys(shopStates);
-  if (keys.length === 0) {
-    alert('Сначала сформируйте список магазинов!');
-    return;
-  }
-
-  var pending = [], off = [], on = [];
-  for (var i = 0; i < keys.length; i++) {
-    var id = keys[i];
-    var s  = shopStates[id];
-    if (s === 'pending') pending.push(id);
-    else if (s === 'off') off.push(id);
-    else on.push(id);
-  }
-  pending.sort(function(a,b){ return +a-+b; });
-  off.sort(function(a,b){ return +a-+b; });
-  on.sort(function(a,b){ return +a-+b; });
-
-  var now  = new Date();
-  var time = now.toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
-  var date = now.toLocaleDateString('ru-RU');
-
-  var text =
-    '📊 ОТЧЁТ — ' + date + ' ' + time + '\n' +
-    '──────────────────────────\n' +
-    '⏳ Ожидают отключения (' + pending.length + '):\n' +
-    (pending.length > 0 ? pending.join(', ') : 'нет') + '\n\n' +
-    '🔴 Отключены (' + off.length + '):\n' +
-    (off.length > 0 ? off.join(', ') : 'нет') + '\n\n' +
-    '🟢 Включены (' + on.length + '):\n' +
-    (on.length > 0 ? on.join(', ') : 'нет') + '\n' +
-    '──────────────────────────';
-
-  var btn = document.getElementById('copyBtn');
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(function() {
-      showCopied(btn);
-    }).catch(function() {
-      fallbackCopy(text, btn);
-    });
-  } else {
-    fallbackCopy(text, btn);
-  }
-}
-
-function fallbackCopy(text, btn) {
-  var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-  try { document.execCommand('copy'); showCopied(btn); } catch(e) { alert(text); }
+  if (!Object.keys(ST).length) { alert('Сначала сформируйте список!'); return; }
+  var text=buildReport(), btn=document.getElementById('copyBtn');
+  var ta=document.createElement('textarea');
+  ta.value=text; ta.style.cssText='position:fixed;top:-9999px;left:-9999px;width:2px;height:2px;opacity:0';
+  document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0,99999);
+  var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
   document.body.removeChild(ta);
+  if (ok) { showCopied(btn); return; }
+  if (navigator.clipboard&&navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function(){ showCopied(btn); }).catch(function(){ showModal(text); });
+  } else { showModal(text); }
 }
 
 function showCopied(btn) {
-  btn.textContent = '✅ Скопировано!';
-  btn.classList.add('copied');
-  setTimeout(function() {
-    btn.innerHTML = '📋 Скопировать';
-    btn.classList.remove('copied');
-  }, 2000);
+  btn.textContent='✅ Скопировано!'; btn.classList.add('copied');
+  setTimeout(function(){ btn.innerHTML='📋 Скопировать'; btn.classList.remove('copied'); }, 2500);
 }
 
+function showModal(text) {
+  var old=document.getElementById('cm'); if(old) old.remove();
+  var m=document.createElement('div'); m.id='cm'; m.className='modal-bg';
+  m.innerHTML='<div class="modal-box"><div class="modal-ttl">📋 Скопируйте отчёт:</div>'+
+    '<textarea id="mta" readonly>'+escH(text)+'</textarea>'+
+    '<div class="modal-btns">'+
+      '<button class="mbtn-sel" onclick="selMta()">Выделить всё</button>'+
+      '<button class="mbtn-close" onclick="document.getElementById(\'cm\').remove()">Закрыть</button>'+
+    '</div></div>';
+  document.body.appendChild(m);
+  setTimeout(selMta, 80);
+}
+function selMta(){ var t=document.getElementById('mta'); if(t){ t.focus(); t.select(); t.setSelectionRange(0,99999); } }
+
+// ══════════════════════════════════════════
+//  CLEAR
+// ══════════════════════════════════════════
 function clearAll() {
-  document.getElementById('inputText').value = '';
+  G=[]; ST={}; WARN=[]; delWrap=null;
+  lsDel(K_G); lsDel(K_S); lsDel(K_W);
+  document.getElementById('groupsWrap').innerHTML='';
   document.getElementById('appContent').classList.add('hidden');
-  document.getElementById('groupsContainer').innerHTML = '';
-  shopStates = {};
-  groups = [];
-  warningNums = [];
-  document.getElementById('cnt-pending').textContent = '0';
-  document.getElementById('cnt-off').textContent = '0';
-  document.getElementById('cnt-on').textContent = '0';
+  document.getElementById('emptyState').classList.remove('hidden');
+  document.getElementById('listBtns').classList.add('hidden');
+  document.getElementById('warnBox').classList.add('hidden');
+  ['cntP','cntO','cntN','sumCP','sumCO','sumCN'].forEach(function(id){
+    document.getElementById(id).textContent='0';
+  });
+  document.getElementById('sumP').innerHTML='<span class="empty-msg">Все обработаны</span>';
+  document.getElementById('sumO').innerHTML='<span class="empty-msg">Нет отключённых</span>';
+  document.getElementById('sumN').innerHTML='<span class="empty-msg">Нет включённых</span>';
+  toast('🗑 Всё очищено');
+}
+
+function clearEditor() {
+  document.getElementById('inputText').value='';
+  lsDel(K_T);
+  toast('🗑 Редактор очищен');
+}
+
+// ══════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════
+function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toast(msg) {
+  var old=document.getElementById('toast'); if(old) old.remove();
+  var el=document.createElement('div'); el.id='toast'; el.className='save-toast'; el.textContent=msg;
+  document.body.appendChild(el);
+  setTimeout(function(){ el.style.transition='opacity .4s'; el.style.opacity='0';
+    setTimeout(function(){ if(el.parentNode) el.remove(); },400); }, 2000);
 }
 </script>
 </body>
