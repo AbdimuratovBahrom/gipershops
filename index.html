@@ -24,9 +24,9 @@ body{background:var(--bg);font-family:'Nunito',sans-serif;color:var(--text);min-
 .stat-label{font-size:.62rem;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 
 .tabs{display:flex;padding:0 16px 14px}
-.tab{flex:1;padding:10px;text-align:center;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:all .18s;color:var(--dim)}
+.tab{flex:1;padding:10px;text-align:center;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:all .18s;color:var(--dim);outline:none;-webkit-appearance:none}
 .tab:first-child{border-radius:12px 0 0 12px}
-.tab:last-child{border-radius:0 12px 12px 0}
+.tab:last-child{border-radius:0 12px 12px 0;border-left:none}
 .tab.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent;box-shadow:0 3px 12px rgba(102,126,234,.35)}
 
 .panel{display:none}.panel.active{display:block}
@@ -137,8 +137,8 @@ textarea::placeholder{color:#a0aec0}
 </div>
 
 <div class="tabs">
-  <div class="tab active" id="tab-list" onclick="switchTab('list')">📋 Список</div>
-  <div class="tab" id="tab-edit" onclick="switchTab('edit')">✏️ Редактор</div>
+  <button class="tab active" id="tab-list" onclick="switchTab('list')">📋 Список</button>
+  <button class="tab" id="tab-edit" onclick="switchTab('edit')">✏️ Редактор</button>
 </div>
 
 <!-- ═══ СПИСОК ═══ -->
@@ -415,4 +415,276 @@ function makeShopWrap(sid, gi) {
   del.textContent='✕';
   del.addEventListener('click', function(e){
     e.stopPropagation();
-    doDe
+    doDeleteShop(sid, gi);
+  });
+
+  // Shop button
+  var btn=document.createElement('button');
+  btn.className='s-btn '+state;
+  btn.id='sb'+sid;
+  btn.innerHTML='<span class="s-num">'+sid+'</span><span class="s-ico">'+ico(state)+'</span>';
+
+  // Touch/click handling
+  var timer=null, fired=false, isTouchDevice=false;
+
+  function onTouchStart(e) {
+    isTouchDevice=true;
+    fired=false;
+    timer=setTimeout(function(){
+      fired=true;
+      activateDelMode(sw);
+    }, 600);
+  }
+  function onTouchEnd(e) {
+    e.preventDefault(); // prevent mouse events firing after touch
+    clearTimeout(timer);
+    if (!fired && !sw.classList.contains('delmode')) {
+      doToggle(sid);
+    }
+    fired=false;
+  }
+  function onTouchMove() { clearTimeout(timer); }
+
+  function onMouseDown(e) {
+    if (isTouchDevice) return; // skip if touch device
+    fired=false;
+    timer=setTimeout(function(){
+      fired=true;
+      activateDelMode(sw);
+    }, 600);
+  }
+  function onMouseUp(e) {
+    if (isTouchDevice) return; // skip if touch device
+    clearTimeout(timer);
+    if (!fired && !sw.classList.contains('delmode')) {
+      doToggle(sid);
+    }
+    fired=false;
+  }
+
+  btn.addEventListener('touchstart', onTouchStart, {passive:true});
+  btn.addEventListener('touchend',   onTouchEnd,   {passive:false});
+  btn.addEventListener('touchmove',  onTouchMove,  {passive:true});
+  btn.addEventListener('mousedown',  onMouseDown);
+  btn.addEventListener('mouseup',    onMouseUp);
+  btn.addEventListener('mouseleave', function(){ clearTimeout(timer); });
+
+  sw.appendChild(del);
+  sw.appendChild(btn);
+  return sw;
+}
+
+function activateDelMode(sw) {
+  // deactivate previous
+  if (delWrap && delWrap !== sw) delWrap.classList.remove('delmode');
+  delWrap=sw;
+  sw.classList.add('delmode');
+  if (navigator.vibrate) navigator.vibrate(60);
+  // auto cancel after 5s
+  setTimeout(function(){ if(sw.classList.contains('delmode')) sw.classList.remove('delmode'); }, 5000);
+}
+
+function cancelDelMode(e) {
+  if (!delWrap) return;
+  if (!delWrap.contains(e.target)) {
+    delWrap.classList.remove('delmode');
+    delWrap=null;
+  }
+}
+
+// ══════════════════════════════════════════
+//  TOGGLE
+// ══════════════════════════════════════════
+function ico(s){ return s==='pending'?'⏳':s==='off'?'🔴':'🟢'; }
+
+function doToggle(sid) {
+  var cur=ST[sid]||'pending';
+  // ⏳ → 🔴 → 🟢 → ⏳ (full cycle so user can reset)
+  if (cur==='pending') ST[sid]='off';
+  else if (cur==='off') ST[sid]='on';
+  else ST[sid]='pending';
+  var btn=document.getElementById('sb'+sid);
+  if (btn) {
+    btn.className='s-btn '+ST[sid];
+    btn.querySelector('.s-ico').textContent=ico(ST[sid]);
+  }
+  updateStats(); updateSummary(); saveStates();
+}
+
+// ══════════════════════════════════════════
+//  DELETE SHOP
+// ══════════════════════════════════════════
+function doDeleteShop(sid, gi) {
+  if (gi === -1) {
+    // Remove from warn list
+    WARN = WARN.filter(function(n){ return String(n) !== sid; });
+  } else {
+    G[gi].shops = G[gi].shops.filter(function(s){ return s !== sid; });
+  }
+  delete ST[sid];
+  delWrap = null;
+  if (gi === -1) { renderWarn(); }
+  else { renderShops(gi); }
+  updateStats(); updateSummary(); saveAll();
+  toast('🗑 Магазин '+sid+' удалён');
+}
+
+// ══════════════════════════════════════════
+//  WARNING
+// ══════════════════════════════════════════
+//  WARNING — interactive shop buttons
+// ══════════════════════════════════════════
+function renderWarn() {
+  var wb=document.getElementById('warnBox');
+  var wc=document.getElementById('warnChips');
+  if (!WARN.length) { wb.classList.add('hidden'); return; }
+
+  // Register warn shops in ST if not yet present
+  WARN.forEach(function(n){
+    var sid=String(n);
+    if (!ST[sid]) ST[sid]='pending';
+  });
+
+  wc.innerHTML='';
+  WARN.forEach(function(n) {
+    var sid=String(n);
+    wc.appendChild(makeShopWrap(sid, -1)); // gi=-1 means warn group
+  });
+  wb.classList.remove('hidden');
+}
+
+// ══════════════════════════════════════════
+//  STATS & SUMMARY
+// ══════════════════════════════════════════
+function updateStats() {
+  var p=0,o=0,n=0, keys=Object.keys(ST);
+  keys.forEach(function(k){ var s=ST[k]; if(s==='pending')p++; else if(s==='off')o++; else n++; });
+  document.getElementById('cntP').textContent=p;
+  document.getElementById('cntO').textContent=o;
+  document.getElementById('cntN').textContent=n;
+}
+
+function updateSummary() {
+  var p=[],o=[],n=[], keys=Object.keys(ST);
+  keys.forEach(function(k){ var s=ST[k]; if(s==='pending')p.push(k); else if(s==='off')o.push(k); else n.push(k); });
+  [p,o,n].forEach(function(a){ a.sort(function(a,b){ return +a-+b; }); });
+  setChips('sumP',p,'sp','Все обработаны');
+  setChips('sumO',o,'so','Нет отключённых');
+  setChips('sumN',n,'sn','Нет включённых');
+  document.getElementById('sumCP').textContent=p.length;
+  document.getElementById('sumCO').textContent=o.length;
+  document.getElementById('sumCN').textContent=n.length;
+}
+
+function setChips(id, arr, cls, empty) {
+  var el=document.getElementById(id);
+  if (!arr.length) { el.innerHTML='<span class="empty-msg">'+empty+'</span>'; return; }
+  el.innerHTML=arr.map(function(x,i){
+    return '<span class="chip" style="animation:none">'+x+'</span>';
+  }).join('');
+}
+
+// ══════════════════════════════════════════
+//  SHOW / HIDE APP
+// ══════════════════════════════════════════
+function showApp() {
+  document.getElementById('appContent').classList.remove('hidden');
+  document.getElementById('emptyState').classList.add('hidden');
+  document.getElementById('listBtns').classList.remove('hidden');
+}
+
+// ══════════════════════════════════════════
+//  COPY
+// ══════════════════════════════════════════
+function buildReport() {
+  var p=[],o=[],n=[], keys=Object.keys(ST);
+  keys.forEach(function(k){ var s=ST[k]; if(s==='pending')p.push(k); else if(s==='off')o.push(k); else n.push(k); });
+  [p,o,n].forEach(function(a){ a.sort(function(a,b){ return +a-+b; }); });
+  var now=new Date(), d=now.toLocaleDateString('ru-RU'), t=now.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+  return '📊 ОТЧЁТ — '+d+' '+t+'\n──────────────────────────\n'+
+    '⏳ Ожидают ('+p.length+'):\n'+(p.length?p.join(', '):'нет')+'\n\n'+
+    '🔴 Отключены ('+o.length+'):\n'+(o.length?o.join(', '):'нет')+'\n\n'+
+    '🟢 Включены ('+n.length+'):\n'+(n.length?n.join(', '):'нет')+'\n──────────────────────────';
+}
+
+function copySummary() {
+  if (!Object.keys(ST).length) { alert('Сначала сформируйте список!'); return; }
+  var text=buildReport(), btn=document.getElementById('copyBtn');
+  var ta=document.createElement('textarea');
+  ta.value=text; ta.style.cssText='position:fixed;top:-9999px;left:-9999px;width:2px;height:2px;opacity:0';
+  document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0,99999);
+  var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  if (ok) { showCopied(btn); return; }
+  if (navigator.clipboard&&navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function(){ showCopied(btn); }).catch(function(){ showModal(text); });
+  } else { showModal(text); }
+}
+
+function showCopied(btn) {
+  btn.textContent='✅ Скопировано!'; btn.classList.add('copied');
+  setTimeout(function(){ btn.innerHTML='📋 Скопировать'; btn.classList.remove('copied'); }, 2500);
+}
+
+function showModal(text) {
+  var old=document.getElementById('cm'); if(old) old.remove();
+  var m=document.createElement('div'); m.id='cm'; m.className='modal-bg';
+  m.innerHTML='<div class="modal-box"><div class="modal-ttl">📋 Скопируйте отчёт:</div>'+
+    '<textarea id="mta" readonly>'+escH(text)+'</textarea>'+
+    '<div class="modal-btns">'+
+      '<button class="mbtn-sel" onclick="selMta()">Выделить всё</button>'+
+      '<button class="mbtn-close" onclick="document.getElementById(\'cm\').remove()">Закрыть</button>'+
+    '</div></div>';
+  document.body.appendChild(m);
+  setTimeout(selMta, 80);
+}
+function selMta(){ var t=document.getElementById('mta'); if(t){ t.focus(); t.select(); t.setSelectionRange(0,99999); } }
+
+// ══════════════════════════════════════════
+//  CLEAR
+// ══════════════════════════════════════════
+function resetStates() {
+  Object.keys(ST).forEach(function(sid){ ST[sid]='pending'; });
+  saveStates();
+  renderAll();
+  toast('↺ Все статусы сброшены');
+}
+
+function clearAll() {
+  G=[]; ST={}; WARN=[]; delWrap=null;
+  lsDel(K_G); lsDel(K_S); lsDel(K_W);
+  document.getElementById('groupsWrap').innerHTML='';
+  document.getElementById('appContent').classList.add('hidden');
+  document.getElementById('emptyState').classList.remove('hidden');
+  document.getElementById('listBtns').classList.add('hidden');
+  document.getElementById('warnBox').classList.add('hidden');
+  ['cntP','cntO','cntN','sumCP','sumCO','sumCN'].forEach(function(id){
+    document.getElementById(id).textContent='0';
+  });
+  document.getElementById('sumP').innerHTML='<span class="empty-msg">Все обработаны</span>';
+  document.getElementById('sumO').innerHTML='<span class="empty-msg">Нет отключённых</span>';
+  document.getElementById('sumN').innerHTML='<span class="empty-msg">Нет включённых</span>';
+  toast('🗑 Всё очищено');
+}
+
+function clearEditor() {
+  document.getElementById('inputText').value='';
+  lsDel(K_T);
+  toast('🗑 Редактор очищен');
+}
+
+// ══════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════
+function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toast(msg) {
+  var old=document.getElementById('toast'); if(old) old.remove();
+  var el=document.createElement('div'); el.id='toast'; el.className='save-toast'; el.textContent=msg;
+  document.body.appendChild(el);
+  setTimeout(function(){ el.style.transition='opacity .4s'; el.style.opacity='0';
+    setTimeout(function(){ if(el.parentNode) el.remove(); },400); }, 2000);
+}
+</script>
+</body>
+</html>
